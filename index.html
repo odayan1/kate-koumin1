@@ -44,6 +44,15 @@ main{max-width:760px;margin:0 auto;padding:16px 14px 50px;}
 .c50 .badge{background:var(--green);} .c70 .badge{background:var(--blue);} .c90 .badge{background:#d4a900;}
 .range-note{margin-top:14px;font-size:11.5px;color:#64808c;text-align:center;}
 
+/* ===== set picker ===== */
+.set-grid{display:grid;gap:10px;}
+.setbtn{background:#fff;border:2px solid #d7e9f1;border-radius:14px;padding:13px 15px;text-align:left;cursor:pointer;font:inherit;color:inherit;box-shadow:0 2px 6px rgba(31,120,150,.08);display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;}
+.setbtn:active{transform:scale(.98);}
+.setbtn .sn{font-size:14.5px;font-weight:800;}
+.setbtn .sd{font-size:11.5px;color:#64808c;margin-top:2px;}
+.setbtn .sb{font-size:11.5px;font-weight:800;color:#1491bd;background:#eef7fb;border-radius:999px;padding:3px 10px;white-space:nowrap;flex-shrink:0;}
+.blank{color:var(--red);font-weight:900;}
+
 /* ===== quiz ===== */
 #quiz-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
 #course-tag{font-size:12px;font-weight:800;color:#fff;border-radius:999px;padding:3px 12px;}
@@ -138,7 +147,7 @@ footer b{color:var(--blue);}
   <!-- ========== HOME ========== -->
   <section id="home">
     <div class="lead">
-      目指す点数のコースを選ぼう！同じ範囲を <b>50点（暗記）→ 70点（資料読み取り）→ 90点（説明できる）</b> と段階的にレベルアップしていくよ。各コース10問。
+      目指す点数のコースを選ぼう！同じ範囲を <b>50点（暗記）→ 70点（資料読み取り）→ 90点（説明できる）</b> と段階的にレベルアップしていくよ。1プレイ10問。
     </div>
     <div class="course-grid">
       <button class="course c50" id="btn-c50" onclick="startCourse('50')">
@@ -146,8 +155,8 @@ footer b{color:var(--blue);}
         <span class="badge">まずはここから</span>
         <div class="pt">50<small>点コース</small></div>
         <h2>基礎用語をおぼえる</h2>
-        <p>基本用語の空所補充。テストに必ず出る用語を確実に！（毎回ランダム10問）</p>
-        <span class="best" id="best-50">ベスト：まだ記録なし</span>
+        <p>テストに必ず出る基本用語の空所補充。単元ごとに基礎を全部つぶそう！</p>
+        <span class="best">全40問｜第1〜4章 各10問＋全範囲ミックス</span>
       </button>
       <button class="course c70" id="btn-c70" onclick="startCourse('70')">
         <div class="stripe"></div>
@@ -155,7 +164,7 @@ footer b{color:var(--blue);}
         <div class="pt">70<small>点コース</small></div>
         <h2>資料・グラフを読み取る</h2>
         <p>グラフ・年表・図を見て答える資料問題。読み取りのコツをつかもう！</p>
-        <span class="best" id="best-70">ベスト：まだ記録なし</span>
+        <span class="best">全20問｜資料セット①②</span>
       </button>
       <button class="course c90" id="btn-c90" onclick="startCourse('90')">
         <div class="stripe"></div>
@@ -163,10 +172,19 @@ footer b{color:var(--blue);}
         <div class="pt">90<small>点コース</small></div>
         <h2>理由・しくみを説明する</h2>
         <p>誤文選択＋記述の模範解答。解説を音読して「書ける」力をつける！</p>
-        <span class="best" id="best-90">ベスト：まだ記録なし</span>
+        <span class="best">全20問｜説明セット①②</span>
       </button>
     </div>
     <p class="range-note">出題範囲：公民 第1〜4章（現代社会と私たちの暮らし／日本国憲法と国民主権／憲法が保障する基本的人権／新しい時代の人権保障と平和主義）</p>
+  </section>
+
+  <!-- ========== SET PICKER ========== -->
+  <section id="sets" class="hidden">
+    <div class="lead" id="sets-lead"></div>
+    <div class="set-grid" id="set-list"></div>
+    <div class="btn-row">
+      <button class="btn home" onclick="goHome()">コース選択にもどる</button>
+    </div>
   </section>
 
   <!-- ========== QUIZ ========== -->
@@ -202,7 +220,7 @@ footer b{color:var(--blue);}
       <div id="review" class="review"></div>
       <div class="btn-row">
         <button class="btn retry" id="retry-btn" onclick="retry()">もう一度チャレンジ</button>
-        <button class="btn home" onclick="goHome()">コース選択にもどる</button>
+        <button class="btn home" onclick="backToSets()">セット選択にもどる</button>
       </div>
     </div>
   </section>
@@ -305,6 +323,58 @@ const POOL50 = [
   c:["情報公開制度","個人情報保護制度","マイナンバー制度","国民審査制度"],a:0,
   e:"<b>情報公開制度</b>。「知る権利」に基づいて設けられている。"},
 ];
+
+/* 単元別40問化の追加問題 */
+const EX2=[ // 第2章の追加
+ {q:"政府の権力を制限して国民の人権を保障するという考え方を何という？",
+  c:["民主主義","立憲主義","資本主義","社会契約説"],a:1,
+  e:"<b>立憲主義</b>。人の支配ではなく「法の支配」による政治を目指す考え方。"},
+ {q:"憲法改正の発議に必要なのは、各議院の総議員のどれだけの賛成？",
+  c:["過半数","3分の2以上","4分の3以上","全会一致"],a:1,
+  e:"発議＝総議員の<b>3分の2以上</b>、国民投票＝有効投票の<b>過半数</b>。セットで暗記！"},
+];
+const EX3=[ // 第3章の追加
+ {q:"職場での男女平等を目指して1985年に定められた法律は？",
+  c:["男女共同参画社会基本法","男女雇用機会均等法","女性活躍推進法","労働基準法"],a:1,
+  e:"1985年＝<b>男女雇用機会均等法</b>。1999年の男女共同参画社会基本法と区別しよう。"},
+ {q:"個人の利益をこえた、社会全体の利益のことを何という？",
+  c:["公共の福祉","基本的人権","法の支配","国民主権"],a:0,
+  e:"<b>公共の福祉</b>。人権どうしが衝突するとき、人権を制限する根拠になる。"},
+ {q:"選挙権や被選挙権など、国民が政治に参加する権利をまとめて何という？",
+  c:["請求権","自由権","参政権","社会権"],a:2,
+  e:"<b>参政権</b>。国や地方公共団体の機関に要望する「請願権」もふくまれる。"},
+ {q:"憲法第25条が保障する「健康で文化的な最低限度の生活を営む権利」を何という？",
+  c:["生存権","幸福追求権","勤労の権利","環境権"],a:0,
+  e:"<b>生存権</b>＝社会権の中心。生活保護法によって具体的に保障される。"},
+ {q:"無償の義務教育など、教育の基本理念や原則を定めた法律は？",
+  c:["学校教育法","教育基本法","文化財保護法","生涯学習振興法"],a:1,
+  e:"<b>教育基本法</b>（1947年制定・2006年改正）。「教育を受ける権利」を支える法律。"},
+];
+const EX4=[ // 第4章の追加
+ {q:"日照権など、良好な環境を求める権利を何という？",
+  c:["知る権利","環境権","自己決定権","請願権"],a:1,
+  e:"<b>環境権</b>。公害の深刻化を背景に主張された。環境基本法（1993年）もセットで。"},
+ {q:"名前や住所などの情報の悪用を防ぐため、その保護を義務づけた法律は？",
+  c:["情報公開法","個人情報保護法","マイナンバー法","電子消費者契約法"],a:1,
+  e:"<b>個人情報保護法</b>。プライバシーの権利を守るための法律。"},
+ {q:"医師からの十分な説明に基づいたうえで、患者が治療方法を選択することを何という？",
+  c:["インフォームド・コンセント","セカンドオピニオン","バリアフリー","ターミナルケア"],a:0,
+  e:"<b>インフォームド・コンセント</b>。患者の<b>自己決定権</b>を尊重するしくみ。"},
+ {q:"職業軍人でない人（文民）が軍隊や国防の指揮を行うことを何という？",
+  c:["専守防衛","文民統制","集団的自衛権","国事行為"],a:1,
+  e:"<b>文民統制（シビリアン・コントロール）</b>。自衛隊の最高指揮権は文民である内閣総理大臣が持つ。"},
+ {q:"1992年に成立し、自衛隊が国連の平和維持活動に参加するもとになった法律は？",
+  c:["国際平和協力法（PKO協力法）","日米安全保障条約","安全保障関連法","テロ対策特別措置法"],a:0,
+  e:"<b>PKO協力法</b>（1992年）。この法律により自衛隊がカンボジアなどへ派遣された。"},
+];
+/* 章別セット（各10問） */
+const CH50={
+  ch1:POOL50.slice(0,10),
+  ch2:POOL50.slice(10,18).concat(EX2),
+  ch3:POOL50.slice(18,23).concat(EX3),
+  ch4:POOL50.slice(23,28).concat(EX4),
+};
+const ALL50=[].concat(CH50.ch1,CH50.ch2,CH50.ch3,CH50.ch4);
 
 /* ---------- 70点コース：資料読み取り ---------- */
 /* SVGグラフ生成ヘルパー */
@@ -521,6 +591,168 @@ const Q70 = [
   e:"日本国憲法の主権者は<b>国民</b>（国民主権）。天皇は主権者ではなく<b>象徴</b>になった。「欽定憲法→民定憲法」「臣民の権利→基本的人権」の対比も頻出。"},
 ];
 
+/* --- 資料セット②用の図版 --- */
+function saiketsuTable(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆採決の仕方</div><table class="shiryo-table">'+
+  '<tr><th>採決の仕方</th><th>長所</th><th>短所</th></tr>'+
+  '<tr><td style="font-weight:bold;">全会一致</td><td>みんなが納得する</td><td>決定に時間がかかることがある</td></tr>'+
+  '<tr><td style="font-weight:bold;">多数決</td><td>一定時間内で決定できる</td><td>少数意見が反映されにくい</td></tr>'+
+  '</table></div>';
+}
+function taikeiChart(){
+  const items=[["平等権"],["自由権"],["社会権"],["人権を確保する","ための権利"],["新しい人権"]];
+  let s='<div class="shiryo-title">◆基本的人権の内容</div><svg viewBox="0 0 380 155" role="img">';
+  s+='<rect x="115" y="6" width="150" height="30" rx="6" fill="#2fbdea"/><text x="190" y="26" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold">基本的人権</text>';
+  items.forEach((it,i)=>{
+    const cx=39+i*76;
+    s+='<line x1="190" y1="36" x2="'+cx+'" y2="76" stroke="#9ed3ea" stroke-width="1.5"/>';
+    s+='<rect x="'+(cx-35)+'" y="76" width="70" height="52" rx="6" fill="#e5f3f9" stroke="#9ed3ea" stroke-width="1.5"/>';
+    it.forEach((line,li)=>{
+      const ty = it.length===1 ? 106 : 98+li*16;
+      s+='<text x="'+cx+'" y="'+ty+'" font-size="10.5" fill="#1c5a72" text-anchor="middle" font-weight="bold">'+line+'</text>';});
+  });
+  s+='</svg>';
+  return '<div class="shiryo-box">'+s+'</div>';
+}
+function jiyukenTable(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆日本国憲法が定める自由権</div><table class="shiryo-table">'+
+  '<tr><th>分類</th><th>内容</th></tr>'+
+  '<tr><td style="font-weight:bold;">精神活動の自由</td><td>思想・良心の自由／信教の自由／集会・結社・表現の自由／学問の自由</td></tr>'+
+  '<tr><td style="font-weight:bold;">身体の自由</td><td>奴隷的拘束・苦役からの自由／法定手続きの保障 など</td></tr>'+
+  '<tr><td style="font-weight:bold;">経済活動の自由</td><td>居住・移転・職業選択の自由／財産権の不可侵</td></tr>'+
+  '</table></div>';
+}
+function seigenTable(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆公共の福祉による人権の制限の例</div><table class="shiryo-table">'+
+  '<tr><th>自由・権利</th><th>制限の例</th></tr>'+
+  '<tr><td>表現の自由</td><td>他人の名誉を傷つける行為の禁止</td></tr>'+
+  '<tr><td>集会の自由</td><td>デモの規制</td></tr>'+
+  '<tr><td>居住・移転の自由</td><td>感染症による入院措置</td></tr>'+
+  '<tr><td>労働基本権</td><td>公務員のストライキの禁止</td></tr>'+
+  '<tr><td>営業の自由</td><td>医師など無資格者の営業禁止</td></tr>'+
+  '</table></div>';
+}
+function jouyakuTable(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆主な人権に関する宣言・条約</div><table class="shiryo-table">'+
+  '<tr><th>採択年</th><th>宣言・条約</th><th>日本の対応</th></tr>'+
+  '<tr><td>1948年</td><td>世界人権宣言</td><td>―</td></tr>'+
+  '<tr><td>1965年</td><td>人種差別撤廃条約</td><td>1995年批准</td></tr>'+
+  '<tr><td>1966年</td><td>国際人権規約</td><td>1979年批准</td></tr>'+
+  '<tr><td>1979年</td><td>女子差別撤廃条約</td><td>1985年批准</td></tr>'+
+  '<tr><td>1989年</td><td>子どもの権利条約</td><td>1994年批准</td></tr>'+
+  '<tr><td>1989年</td><td>死刑廃止条約</td><td><span class="blank">未批准</span></td></tr>'+
+  '</table></div>';
+}
+function jobunBox(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆平和主義について定めた日本国憲法の条文</div><div style="border:1.5px solid #9ed3ea;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.9;background:#fff;">第9条① 日本国民は、正義と秩序を基調とする国際平和を誠実に希求し、国権の発動たる<span class="blank">（ a ）</span>と、武力による威嚇又は武力の行使は、国際紛争を解決する手段としては、永久にこれを放棄する。<br>② 前項の目的を達するため、陸海空軍その他の<span class="blank">（ b ）</span>は、これを保持しない。国の<span class="blank">（ c ）</span>は、これを認めない。</div></div>';
+}
+function boueiNenpyo(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆日本の防衛に関する主なできごと</div><table class="shiryo-table">'+
+  '<tr><th style="width:62px;">年代</th><th>できごと</th></tr>'+
+  '<tr><td>1946年</td><td>日本国憲法の公布</td></tr>'+
+  '<tr><td>1951年</td><td>日米安全保障条約に調印</td></tr>'+
+  '<tr><td>1954年</td><td>自衛隊が発足</td></tr>'+
+  '<tr><td>1971年</td><td>国会で非核三原則を決議</td></tr>'+
+  '<tr><td>1992年</td><td>PKO協力法が成立、自衛隊をカンボジアへ派遣</td></tr>'+
+  '<tr><td>2015年</td><td>安全保障関連法が成立</td></tr>'+
+  '</table></div>';
+}
+function shihaiChart(){
+  let s='<div class="shiryo-title">◆人の支配と法の支配</div><svg viewBox="0 0 380 200" role="img">';
+  // 左：人の支配
+  s+='<text x="95" y="18" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">人の支配</text>';
+  s+='<rect x="45" y="28" width="100" height="30" rx="6" fill="#f6d6d6" stroke="#e05d5d"/><text x="95" y="48" font-size="11.5" text-anchor="middle" fill="#8c2d2d" font-weight="bold">権力者（君主など）</text>';
+  s+='<line x1="95" y1="58" x2="95" y2="128" stroke="#e05d5d" stroke-width="2"/><polygon points="95,136 90,126 100,126" fill="#e05d5d"/>';
+  s+='<text x="102" y="98" font-size="10" fill="#8c2d2d">政治権力で支配</text>';
+  s+='<rect x="45" y="140" width="100" height="30" rx="6" fill="#fdf0f0" stroke="#e05d5d"/><text x="95" y="160" font-size="11.5" text-anchor="middle" fill="#8c2d2d" font-weight="bold">国民</text>';
+  // 右：法の支配
+  s+='<text x="285" y="18" font-size="12" fill="#1a7fa8" text-anchor="middle" font-weight="bold">法の支配</text>';
+  s+='<rect x="235" y="140" width="100" height="30" rx="6" fill="#e5f3f9" stroke="#2fbdea"/><text x="285" y="160" font-size="11.5" text-anchor="middle" fill="#1c5a72" font-weight="bold">国民</text>';
+  s+='<rect x="235" y="28" width="100" height="30" rx="6" fill="#d9f0da" stroke="#5aa85c"/><text x="285" y="48" font-size="11.5" text-anchor="middle" fill="#2a5c2b" font-weight="bold">法</text>';
+  s+='<path d="M250 140 L250 66" stroke="#2fbdea" stroke-width="2" fill="none"/><polygon points="250,60 245,70 255,70" fill="#2fbdea"/>';
+  s+='<text x="150" y="104" font-size="10" fill="#1c5a72">国民が（議会を通じて）法を制定</text>';
+  s+='<path d="M320 58 L320 132" stroke="#5aa85c" stroke-width="2" fill="none"/><polygon points="320,138 315,128 325,128" fill="#5aa85c"/>';
+  s+='<text x="327" y="100" font-size="10" fill="#2a5c2b">法が政治権力を</text><text x="327" y="113" font-size="10" fill="#2a5c2b">制限して国民を守る</text>';
+  s+='</svg>';
+  return '<div class="shiryo-box">'+s+'</div>';
+}
+function donorCard(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆ある意思表示カード</div>'+
+  '<div style="background:#2e8b57;color:#fff;border-radius:10px;padding:10px 12px;max-width:300px;margin:0 auto;">'+
+  '<div style="font-weight:800;font-size:14px;">臓器提供意思表示カード</div>'+
+  '<div style="background:#fff;color:#1c3a47;border-radius:6px;margin-top:6px;padding:8px;font-size:11px;line-height:1.7;">'+
+  '（1、2、3のいずれかの番号を○で囲んでください）<br>'+
+  '1．私は、脳死後及び心臓が停止した死後のいずれでも、移植のために臓器を提供します。<br>'+
+  '2．私は、心臓が停止した死後に限り、移植のために臓器を提供します。<br>'+
+  '3．私は、臓器を提供しません。</div></div></div>';
+}
+
+/* --- 資料セット②（10問） --- */
+const Q70B = [
+ {sh:()=>barChart("◆インターネットに関わる犯罪の検挙件数の推移",
+    ["2005","10","15","20"],[3161,5741,8113,9875],"件",10000,"#e05d5d"),
+  q:"資料から読み取れることとして正しいものを1つ選びなさい。",
+  c:["インターネットに関わる犯罪は減り続けている",
+     "2020年の検挙件数は、2005年の3倍以上に増えている",
+     "犯罪が増えたため、日本ではインターネットの利用が禁止された",
+     "この資料は少子高齢化と最も関係が深い"],a:1,
+  e:"3161件→9875件で<b>3倍以上に増加</b>。情報社会では個人情報の流出などの犯罪が課題で、<b>メディアリテラシー</b>を身につけることが重要。"},
+ {sh:saiketsuTable,
+  q:"表から読み取れる「多数決」の短所として正しいものを1つ選びなさい。",
+  c:["決定までに必ず長い時間がかかる",
+     "少数意見が反映されにくい",
+     "みんなの意見が必ず反映される",
+     "代表者しか採決に参加できない"],a:1,
+  e:"多数決の長所＝<b>一定時間内で決定できる</b>、短所＝<b>少数意見が反映されにくい</b>。だから「少数意見の尊重」が必要になる。"},
+ {sh:taikeiChart,
+  q:"図中の「社会権」にふくまれる権利を1つ選びなさい。",
+  c:["財産権の不可侵","生存権","選挙権","法の下の平等"],a:1,
+  e:"社会権＝<b>生存権・教育を受ける権利・勤労の権利・労働基本権</b>。財産権は自由権（経済活動の自由）、選挙権は参政権、法の下の平等は平等権。"},
+ {sh:jiyukenTable,
+  q:"表中の「経済活動の自由」にふくまれるものの組み合わせとして正しいものを1つ選びなさい。",
+  c:["思想・良心の自由 と 信教の自由",
+     "居住・移転・職業選択の自由 と 財産権の不可侵",
+     "学問の自由 と 表現の自由",
+     "奴隷的拘束・苦役からの自由 と 法定手続きの保障"],a:1,
+  e:"経済活動の自由＝<b>居住・移転・職業選択の自由＋財産権の不可侵</b>。「2つ選びなさい」の形で定期テスト超頻出！"},
+ {sh:seigenTable,
+  q:"「公務員のストライキの禁止」は、どの自由・権利が公共の福祉により制限された例か。表を参考に1つ選びなさい。",
+  c:["表現の自由","集会の自由","労働基本権","営業の自由"],a:2,
+  e:"ストライキ＝団体行動権なので<b>労働基本権</b>の制限。デモの規制＝集会の自由、入院措置＝居住・移転の自由、と例とセットで覚える。"},
+ {sh:jouyakuTable,
+  q:"表から読み取れることとして正しいものを1つ選びなさい。",
+  c:["日本は表中のすべての条約を批准している",
+     "日本は死刑廃止条約を批准していない",
+     "子どもの権利条約は採択された年に日本が批准した",
+     "人種差別撤廃条約は世界人権宣言より前に採択された"],a:1,
+  e:"<b>死刑廃止条約は未批准</b>。ちなみに世界人権宣言は条約ではないので法的拘束力がなく、条約化したものが国際人権規約（1966年）。"},
+ {sh:jobunBox,
+  q:"条文中の（ a ）〜（ c ）にあてはまる語句の組み合わせとして正しいものを1つ選びなさい。",
+  c:["a：戦争　b：戦力　c：交戦権",
+     "a：戦力　b：戦争　c：交戦権",
+     "a：戦争　b：交戦権　c：戦力",
+     "a：武力　b：軍隊　c：自衛権"],a:0,
+  e:"第9条＝<b>戦争の放棄・戦力の不保持・交戦権の否認</b>。放棄するのは「戦争」、保持しないのは「戦力」、認めないのは「交戦権」。"},
+ {sh:boueiNenpyo,
+  q:"年表から読み取れることとして正しいものを1つ選びなさい。",
+  c:["自衛隊は日本国憲法の公布より前に発足した",
+     "非核三原則は1971年に国会で決議された",
+     "PKO協力法は日米安全保障条約より前に成立した",
+     "自衛隊は一度も海外へ派遣されたことがない"],a:1,
+  e:"年表問題は<b>前後関係</b>がポイント。自衛隊発足（1954年）は憲法公布・日米安保より<b>後</b>。PKO協力法（1992年）で自衛隊はカンボジアへ<b>派遣された</b>。"},
+ {sh:shihaiChart,
+  q:"図中の「法の支配」の説明として正しいものを1つ選びなさい。",
+  c:["権力者が思いのままに国民を支配するしくみ",
+     "国民が民主的に制定した法によって、政治権力を制限するしくみ",
+     "法律さえあれば人権をいくらでも制限できるしくみ",
+     "裁判所がすべての法を制定するしくみ"],a:1,
+  e:"法の支配＝<b>国民の代表（議会）が制定した法で政治権力をしばる</b>しくみ。「人の支配」の反対で、立憲主義の土台。"},
+ {sh:donorCard,
+  q:"この資料と最も関係の深い権利を1つ選びなさい。",
+  c:["知る権利","環境権","プライバシーの権利","自己決定権"],a:3,
+  e:"臓器提供意思表示カード＝臓器を提供するかどうかを<b>自分であらかじめ決めておく</b>→<b>自己決定権</b>。インフォームド・コンセントも同じ仲間。"},
+];
+
 /* ---------- 90点コース：説明・誤文選択＋模範解答 ---------- */
 const Q90 = [
  {type:"誤文選択",
@@ -605,6 +837,90 @@ const Q90 = [
   m:"新しい人権は、日本国憲法に直接の規定はないが、社会の変化にともなって主張されるようになった人権であり、幸福追求権（憲法第13条）などを根拠として認められるようになった。"},
 ];
 
+/* --- 説明セット②（10問） --- */
+const Q90B = [
+ {type:"説明選択",
+  q:"ルールや決定について、「効率」の考え方の説明として最も適切なものを1つ選びなさい。",
+  c:["時間やお金、労力などが、むだなく使われているかという考え方",
+     "手続きや機会、結果が、だれにとっても公平であるかという考え方",
+     "全員の意見が一致するまで話し合うという考え方",
+     "多数派の意見を必ず優先するという考え方"],a:0,
+  e:"2番目は<b>公正</b>の説明。「効率と公正」は、みんなが納得できるかを判断する2つのものさし。<b>両方セットで</b>説明できるように。",
+  m:"効率とは、時間やお金、労力などにむだがないかという考え方である。公正とは、手続きや機会、結果がだれにとっても公平であるかという考え方である。"},
+ {type:"説明選択",
+  q:"多数決で結論を出すときに「少数意見の尊重」が必要とされる理由として最も適切なものを1つ選びなさい。",
+  c:["少数意見のほうが常に正しいから",
+     "多数決では、少数の人の意見が結論に反映されにくいから",
+     "少数意見を聞くと決定が早くなるから",
+     "多数派の意見は信用できないから"],a:1,
+  e:"多数決の短所＝<b>少数意見が反映されにくい</b>。「だから結論を出す前に十分聞いて尊重する」という流れで書く。",
+  m:"多数決では少数の人の意見が結論に反映されにくいため、結論を出す前に少数意見にも十分に耳をかたむけ、尊重する必要があるから。"},
+ {type:"説明選択",
+  q:"「知る権利」が国民に必要とされる理由として最も適切なものを1つ選びなさい。",
+  c:["国民が主権者として政治について判断し、参加するためには、十分な情報を得る必要があるから",
+     "国の秘密をすべて公開させるため",
+     "マスメディアの利益を守るため",
+     "他人の個人情報を自由に見られるようにするため"],a:0,
+  e:"知る権利の根っこは<b>国民主権</b>。「主権者として判断するために情報が必要」という理由づけが、そのまま記述の型になる。",
+  m:"国民が主権者として政治について正しく判断し、政治に参加するためには、国や地方公共団体が持つ情報を得ることが必要だから。"},
+ {type:"説明選択",
+  q:"ワイマール憲法（1919年・ドイツ）が人権の歴史の上で重要とされる理由として最も適切なものを1つ選びなさい。",
+  c:["世界で初めて自由権を保障したから",
+     "「人たるに値する生存」の保障など、社会権を世界で初めて取り入れたから",
+     "世界で初めて国民主権を定めたから",
+     "国際連合をつくるきっかけになったから"],a:1,
+  e:"18世紀＝<b>自由権・平等権の確立</b>（アメリカ独立宣言・フランス人権宣言）→ 20世紀＝<b>社会権の確立（ワイマール憲法）</b>という流れで説明する。",
+  m:"ワイマール憲法は、「人たるに値する生存」の保障など、社会権を世界で初めて取り入れた憲法だから。"},
+ {type:"誤文選択",
+  q:"天皇の地位について述べた文として【誤っているもの】を1つ選びなさい。",
+  c:["大日本帝国憲法では、天皇が主権者であった",
+     "日本国憲法では、天皇は日本国および日本国民統合の象徴である",
+     "天皇は、内閣の助言と承認のもとで国事行為を行う",
+     "日本国憲法でも、天皇は政治についての決定権を持っている"],a:3,
+  e:"日本国憲法の天皇は<b>政治についての決定権を持たない</b>（象徴天皇制）。国事行為のみを行う。",
+  m:"大日本帝国憲法では天皇が主権者であったが、日本国憲法では天皇は日本国および日本国民統合の象徴とされ、政治についての決定権を持たず、内閣の助言と承認のもとで国事行為のみを行う。"},
+ {type:"誤文選択",
+  q:"生存権について述べた文として【誤っているもの】を1つ選びなさい。",
+  c:["憲法第25条で保障されている",
+     "「健康で文化的な最低限度の生活を営む権利」である",
+     "生活に困窮する人には、生活保護法に基づいて生活費が支給される",
+     "生存権は自由権にふくまれる"],a:3,
+  e:"生存権は<b>社会権</b>の中心。国に保障を求める権利だから、「国家からの自由」である自由権とは性格がちがう。",
+  m:"生存権とは、憲法第25条が保障する「健康で文化的な最低限度の生活を営む権利」であり、社会権にふくまれる。これを保障するため、生活に困窮する人には生活保護法に基づいて生活費が支給される。"},
+ {type:"説明選択",
+  q:"経済活動の自由が、精神の自由にくらべて公共の福祉により広く制限される理由として最も適切なものを1つ選びなさい。",
+  c:["経済活動は国民の生活と関係がないから",
+     "無制限に認めると、貧富の差の拡大など社会全体の不利益が生じるおそれがあるから",
+     "精神の自由より重要ではない権利だから",
+     "憲法に規定されていない権利だから"],a:1,
+  e:"「無制限に認めると → 社会全体の不利益が生じるおそれ」という<b>理由の型</b>で書く。無資格者の営業禁止などが制限の例。",
+  m:"経済活動の自由を無制限に認めると、貧富の差が広がるなど社会全体の不利益が生じるおそれがあるため、公共の福祉によって精神の自由よりも広く制限される。"},
+ {type:"説明選択",
+  q:"インフォームド・コンセントが患者の「自己決定権」の尊重につながる理由として最も適切なものを1つ選びなさい。",
+  c:["医師がすべての治療方法を決めてくれるから",
+     "医師からの十分な説明に基づいて、患者自身が治療方法を選択できるから",
+     "治療費の負担が軽くなるから",
+     "家族が治療方法を決められるから"],a:1,
+  e:"ポイントは「<b>十分な説明</b>」＋「<b>患者自身が選ぶ</b>」の2点セット。どちらかが欠けると減点されやすい。",
+  m:"インフォームド・コンセントとは、医師からの十分な説明に基づいたうえで、患者が自分の判断で治療方法を選択することであり、患者の自己決定権を尊重するために重要である。"},
+ {type:"誤文選択",
+  q:"非核三原則について述べた文として【誤っているもの】を1つ選びなさい。",
+  c:["核兵器を「持たず、つくらず、持ち込ませず」という原則である",
+     "1971年に国会で決議された",
+     "現在も日本はこの原則を掲げている",
+     "日本国憲法第9条の条文に明記されている"],a:3,
+  e:"非核三原則は<b>国会の決議</b>であり、憲法の条文には書かれていない。第9条＝戦争放棄・戦力不保持・交戦権否認、と区別する。",
+  m:"非核三原則とは、核兵器を「持たず、つくらず、持ち込ませず」という日本の原則であり、1971年に国会で決議された。"},
+ {type:"説明選択",
+  q:"NGOの説明として最も適切なものを1つ選びなさい。",
+  c:["国が運営する国際協力の機関",
+     "利益を目的として国際的に活動する企業",
+     "社会貢献を目的として、国境をこえて国際的に活動する一般市民の団体",
+     "国際連合の加盟国だけで構成される組織"],a:2,
+  e:"NGO＝<b>非政府組織</b>。「非政府（国ではない）」「社会貢献が目的」「国境をこえて活動」の3要素で書く。「漢字で答えなさい→非政府組織」も頻出。",
+  m:"NGO（非政府組織）とは、社会貢献を目的として、国境をこえて国際的に活動する一般市民の団体である。"},
+];
+
 /* ================= エンジン ================= */
 const COURSE_INFO={
   "50":{label:"50点コース｜基礎暗記", cls:"c50", pts:10},
@@ -623,16 +939,58 @@ function el(id){return document.getElementById(id);}
 function show(id){el(id).classList.remove("hidden");}
 function hide(id){el(id).classList.add("hidden");}
 
+/* セット定義 */
+const SETS={
+ "50":[
+  {key:"ch1",name:"第1章 現代社会と私たちの暮らし",sub:"グローバル化・情報化・少子高齢化・文化・効率と公正（10問）",get:()=>shuffle(CH50.ch1)},
+  {key:"ch2",name:"第2章 日本国憲法と国民主権",sub:"人権の歴史・立憲主義・三大原理・天皇・憲法改正（10問）",get:()=>shuffle(CH50.ch2)},
+  {key:"ch3",name:"第3章 憲法が保障する基本的人権",sub:"平等権・自由権・社会権・公共の福祉・国民の義務（10問）",get:()=>shuffle(CH50.ch3)},
+  {key:"ch4",name:"第4章 新しい人権と平和主義",sub:"新しい人権・国際人権・第9条・非核三原則（10問）",get:()=>shuffle(CH50.ch4)},
+  {key:"mix",name:"🔀 全範囲ミックス",sub:"全40問からランダム10問。仕上げの腕試し！",get:()=>shuffle(ALL50).slice(0,N)},
+ ],
+ "70":[
+  {key:"s1",name:"資料セット①",sub:"グラフ・年表・比較表の読み取り（10問）",get:()=>shuffle(Q70)},
+  {key:"s2",name:"資料セット②",sub:"体系図・条文・表の読み取り（10問）",get:()=>shuffle(Q70B)},
+ ],
+ "90":[
+  {key:"s1",name:"説明セット①",sub:"憲法・人権・平和主義の記述（10問）",get:()=>shuffle(Q90)},
+  {key:"s2",name:"説明セット②",sub:"現代社会・権利のしくみの記述（10問）",get:()=>shuffle(Q90B)},
+ ],
+};
+let curCourse=null;
+
 function startCourse(course){
-  let qs;
-  if(course==="50") qs=shuffle(POOL50).slice(0,N);
-  else if(course==="70") qs=Q70.slice();
-  else qs=Q90.slice();
-  S={course,qs,idx:0,correct:0,streak:0,score:0,wrongs:[],results:[]};
-  hide("home");hide("result");show("quiz");
-  const info=COURSE_INFO[course];
+  curCourse=course;
+  hide("home");hide("result");hide("quiz");
+  renderSets();
+  show("sets");
+  window.scrollTo(0,0);
+}
+
+function renderSets(){
+  const info=COURSE_INFO[curCourse];
+  const total=curCourse==="50"?"全40問（＋ミックス）":"全20問";
+  el("sets-lead").innerHTML="<b>"+info.label+"</b>（"+total+"）<br>セットを選んでスタート！全セット制覇で範囲マスターだ💪";
+  const list=el("set-list");list.innerHTML="";
+  SETS[curCourse].forEach((st,i)=>{
+    const best=localStorage.getItem("koumin1-best-"+curCourse+"-"+st.key);
+    const b=document.createElement("button");
+    b.className="setbtn";
+    b.innerHTML='<span><span class="sn">'+st.name+'</span><br><span class="sd">'+st.sub+'</span></span>'+
+      '<span class="sb">'+(best?"ベスト "+best+"pt":"未挑戦")+'</span>';
+    b.onclick=()=>startSet(i);
+    list.appendChild(b);
+  });
+}
+
+function startSet(si){
+  const st=SETS[curCourse][si];
+  S={course:curCourse,setIdx:si,setKey:st.key,setName:st.name,
+     qs:st.get(),idx:0,correct:0,streak:0,score:0,wrongs:[],results:[]};
+  hide("sets");hide("result");show("quiz");
+  const info=COURSE_INFO[curCourse];
   const tag=el("course-tag");
-  tag.textContent=info.label;
+  tag.textContent=info.label.split("｜")[0]+"｜"+st.name.replace("🔀 ","");
   tag.className="";
   tag.classList.add(info.cls);
   tag.id="course-tag";
@@ -732,7 +1090,7 @@ function showResult(){
   el("stars").textContent="★".repeat(Math.max(1,Math.ceil(c/2)))+"☆".repeat(5-Math.max(1,Math.ceil(c/2)));
   el("result-msg").textContent=msg;
   el("result-score").textContent="正解 "+c+" / "+N+"問　｜　スコア "+S.score+"pt";
-  const key="koumin1-best-"+S.course;
+  const key="koumin1-best-"+S.course+"-"+S.setKey;
   const prev=Number(localStorage.getItem(key)||0);
   if(S.score>prev){localStorage.setItem(key,String(S.score));
     el("result-best").textContent="🎉 ベストスコア更新！（"+prev+" → "+S.score+"）";
@@ -746,20 +1104,12 @@ function showResult(){
   }else{
     rv.innerHTML="";
   }
-  updateBest();
   window.scrollTo(0,0);
 }
 
-function retry(){startCourse(S.course);}
-function goHome(){hide("quiz");hide("result");show("home");updateBest();window.scrollTo(0,0);}
-
-function updateBest(){
-  ["50","70","90"].forEach(cs=>{
-    const v=localStorage.getItem("koumin1-best-"+cs);
-    el("best-"+cs).textContent = v ? "ベスト："+v+"pt" : "ベスト：まだ記録なし";
-  });
-}
-updateBest();
+function retry(){startSet(S.setIdx);}
+function goHome(){hide("quiz");hide("result");hide("sets");show("home");window.scrollTo(0,0);}
+function backToSets(){hide("quiz");hide("result");renderSets();show("sets");window.scrollTo(0,0);}
 </script>
 </body>
 </html>
