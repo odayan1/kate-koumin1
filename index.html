@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公民マスター①（現代社会・憲法・人権・平和主義）| KATEぷら</title>
+<style>
+:root{
+  --blue:#2fbdea;
+  --green:#8dc63f;
+  --yellow:#f7d000;
+  --ink:#1c3a47;
+  --bg:#f2fafd;
+  --red:#e05d5d;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+header{background:linear-gradient(135deg,var(--blue),#1ea5d4);color:#fff;padding:14px 16px;box-shadow:0 2px 8px rgba(31,120,150,.25);}
+.brand{display:flex;align-items:center;gap:10px;max-width:760px;margin:0 auto;}
+.logo{background:#fff;color:var(--blue);font-weight:800;border-radius:10px;padding:4px 10px;font-size:15px;letter-spacing:.5px;white-space:nowrap;}
+.logo span{color:var(--green);}
+.brand-txt{flex:1;min-width:0;}
+.brand-txt h1{font-size:17px;line-height:1.3;}
+.brand-txt p{font-size:11px;opacity:.92;}
+main{max-width:760px;margin:0 auto;padding:16px 14px 50px;}
+.hidden{display:none !important;}
+
+/* ===== home ===== */
+.lead{background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:0 2px 6px rgba(31,120,150,.08);font-size:13.5px;}
+.lead b{color:#1491bd;}
+.course-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.course{background:#fff;border-radius:16px;padding:16px;border:2px solid transparent;cursor:pointer;box-shadow:0 2px 8px rgba(31,120,150,.10);transition:transform .12s;position:relative;overflow:hidden;text-align:left;width:100%;font:inherit;color:inherit;}
+.course:active{transform:scale(.98);}
+.course .pt{font-size:30px;font-weight:900;line-height:1;}
+.course .pt small{font-size:14px;font-weight:700;}
+.course h2{font-size:16px;margin:6px 0 4px;}
+.course p{font-size:12.5px;color:#48616d;}
+.course .best{display:inline-block;margin-top:8px;font-size:11.5px;background:#eef7fb;border-radius:999px;padding:2px 10px;color:#1491bd;font-weight:700;}
+.course .stripe{position:absolute;top:0;left:0;width:8px;height:100%;}
+.c50 .stripe{background:var(--green);} .c50 .pt{color:var(--green);}
+.c70 .stripe{background:var(--blue);} .c70 .pt{color:var(--blue);}
+.c90 .stripe{background:var(--yellow);} .c90 .pt{color:#d4a900;}
+.badge{display:inline-block;font-size:11px;font-weight:800;color:#fff;border-radius:999px;padding:2px 10px;margin-bottom:2px;}
+.c50 .badge{background:var(--green);} .c70 .badge{background:var(--blue);} .c90 .badge{background:#d4a900;}
+.range-note{margin-top:14px;font-size:11.5px;color:#64808c;text-align:center;}
+
+/* ===== quiz ===== */
+#quiz-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+#course-tag{font-size:12px;font-weight:800;color:#fff;border-radius:999px;padding:3px 12px;}
+#course-tag.c50{background:var(--green);} #course-tag.c70{background:var(--blue);} #course-tag.c90{background:#d4a900;}
+#score-box{font-size:13px;font-weight:800;color:#1491bd;background:#fff;border-radius:999px;padding:3px 12px;box-shadow:0 1px 4px rgba(31,120,150,.12);}
+#dots{display:flex;gap:5px;margin-bottom:12px;}
+.dot{flex:1;height:7px;border-radius:99px;background:#d7e9f1;}
+.dot.done{background:var(--green);}
+.dot.now{background:var(--blue);}
+.dot.miss{background:#f0b4b4;}
+.qcard{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 8px rgba(31,120,150,.10);}
+#q-num{font-size:12px;font-weight:800;color:#1491bd;margin-bottom:4px;}
+#q-type{display:inline-block;font-size:11px;font-weight:800;background:#fdf3cc;color:#9c7c00;border-radius:6px;padding:1px 8px;margin-left:6px;}
+#shiryo{margin:10px 0;}
+#shiryo .shiryo-box{border:1.5px solid #cfe6f0;border-radius:12px;padding:10px;background:#fbfeff;}
+#shiryo .shiryo-title{font-size:12px;font-weight:800;color:#1491bd;margin-bottom:6px;}
+#shiryo svg{width:100%;height:auto;display:block;}
+#q-text{font-size:15px;font-weight:700;margin:8px 0 12px;white-space:pre-wrap;}
+#q-text .wrong-word{color:var(--red);}
+#choices{display:grid;gap:9px;}
+.choice{width:100%;text-align:left;background:#f4fafd;border:2px solid #d7e9f1;border-radius:12px;padding:11px 13px;font-size:14px;font-family:inherit;color:var(--ink);cursor:pointer;display:flex;gap:9px;align-items:flex-start;transition:background .1s;}
+.choice:active{background:#e5f3f9;}
+.choice .mark{font-weight:900;color:var(--blue);flex-shrink:0;}
+.choice.correct{background:#f0f8e2;border-color:var(--green);}
+.choice.wrongpick{background:#fdeaea;border-color:var(--red);}
+.choice.dim{opacity:.5;}
+.choice:disabled{cursor:default;}
+
+/* feedback */
+#feedback{margin-top:14px;}
+.verdict{font-size:19px;font-weight:900;margin-bottom:6px;}
+.verdict.ok{color:var(--green);}
+.verdict.ng{color:var(--red);}
+.gotpt{font-size:12.5px;font-weight:800;color:#d4a900;margin-bottom:8px;}
+.expl{background:#eef7fb;border-radius:12px;padding:11px 13px;font-size:13.5px;}
+.expl b{color:#1491bd;}
+.model-box{margin-top:10px;background:#fffbe8;border:2px solid var(--yellow);border-radius:12px;padding:11px 13px;}
+.model-box .mb-title{font-size:12px;font-weight:900;color:#9c7c00;margin-bottom:4px;}
+.model-box .mb-text{font-size:14px;font-weight:700;line-height:1.75;}
+.ondoku{margin-top:10px;background:linear-gradient(135deg,#8dc63f,#6fae23);color:#fff;border-radius:12px;padding:10px 13px;font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.ondoku .spk{font-size:20px;}
+#next-btn{margin-top:14px;width:100%;background:var(--blue);color:#fff;border:none;border-radius:12px;padding:13px;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 3px 0 #1a97c2;}
+#next-btn:active{transform:translateY(2px);box-shadow:none;}
+
+/* ===== result ===== */
+.result-card{background:#fff;border-radius:16px;padding:22px 16px;text-align:center;box-shadow:0 2px 8px rgba(31,120,150,.10);}
+#rank{font-size:56px;font-weight:900;line-height:1;}
+#rank.S{color:#d4a900;} #rank.A{color:var(--blue);} #rank.B{color:var(--green);} #rank.C{color:#8aa0ab;}
+#stars{font-size:26px;letter-spacing:4px;margin:6px 0;}
+#result-msg{font-size:15px;font-weight:800;margin-bottom:4px;}
+#result-score{font-size:13.5px;color:#48616d;margin-bottom:6px;}
+#result-best{font-size:12px;color:#1491bd;font-weight:700;margin-bottom:12px;}
+.review{margin-top:16px;text-align:left;}
+.review h3{font-size:13.5px;color:#1491bd;margin-bottom:8px;}
+.review-item{background:#fdf6f6;border-left:4px solid var(--red);border-radius:8px;padding:9px 11px;font-size:12.5px;margin-bottom:8px;}
+.review-item b{color:#2a7a12;}
+.btn-row{display:grid;gap:10px;margin-top:18px;}
+.btn{width:100%;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;}
+.btn.retry{background:var(--green);color:#fff;box-shadow:0 3px 0 #74a82c;}
+.btn.home{background:#e4eef3;color:var(--ink);box-shadow:0 3px 0 #c3d4dc;}
+.btn:active{transform:translateY(2px);box-shadow:none;}
+
+/* shiryo tables & flow */
+.shiryo-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.shiryo-table th,.shiryo-table td{border:1px solid #cfe6f0;padding:5px 7px;}
+.shiryo-table th{background:#e5f3f9;color:#1c5a72;font-size:12px;}
+.shiryo-table .blank{color:var(--red);font-weight:900;}
+.flow{display:flex;flex-direction:column;align-items:stretch;gap:2px;}
+.flow .fbox{background:#e5f3f9;border:1.5px solid #9ed3ea;border-radius:10px;padding:7px 10px;font-size:12.5px;text-align:center;font-weight:700;}
+.flow .fbox .blank{color:var(--red);font-weight:900;}
+.flow .farrow{text-align:center;color:#1491bd;font-weight:900;font-size:14px;line-height:1.1;}
+footer{text-align:center;font-size:11.5px;color:#7a95a1;padding:18px 10px 26px;}
+footer b{color:var(--blue);}
+@media(min-width:560px){
+  .course-grid{grid-template-columns:repeat(3,1fr);}
+  .brand-txt h1{font-size:19px;}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">KATE<span>ぷら</span></div>
+    <div class="brand-txt">
+      <h1>公民マスター①</h1>
+      <p>現代社会・日本国憲法・基本的人権・平和主義｜つまずきを、プラスに。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ========== HOME ========== -->
+  <section id="home">
+    <div class="lead">
+      目指す点数のコースを選ぼう！同じ範囲を <b>50点（暗記）→ 70点（資料読み取り）→ 90点（説明できる）</b> と段階的にレベルアップしていくよ。各コース10問。
+    </div>
+    <div class="course-grid">
+      <button class="course c50" id="btn-c50" onclick="startCourse('50')">
+        <div class="stripe"></div>
+        <span class="badge">まずはここから</span>
+        <div class="pt">50<small>点コース</small></div>
+        <h2>基礎用語をおぼえる</h2>
+        <p>基本用語の空所補充。テストに必ず出る用語を確実に！（毎回ランダム10問）</p>
+        <span class="best" id="best-50">ベスト：まだ記録なし</span>
+      </button>
+      <button class="course c70" id="btn-c70" onclick="startCourse('70')">
+        <div class="stripe"></div>
+        <span class="badge">差がつく</span>
+        <div class="pt">70<small>点コース</small></div>
+        <h2>資料・グラフを読み取る</h2>
+        <p>グラフ・年表・図を見て答える資料問題。読み取りのコツをつかもう！</p>
+        <span class="best" id="best-70">ベスト：まだ記録なし</span>
+      </button>
+      <button class="course c90" id="btn-c90" onclick="startCourse('90')">
+        <div class="stripe"></div>
+        <span class="badge">説明できたら本物</span>
+        <div class="pt">90<small>点コース</small></div>
+        <h2>理由・しくみを説明する</h2>
+        <p>誤文選択＋記述の模範解答。解説を音読して「書ける」力をつける！</p>
+        <span class="best" id="best-90">ベスト：まだ記録なし</span>
+      </button>
+    </div>
+    <p class="range-note">出題範囲：公民 第1〜4章（現代社会と私たちの暮らし／日本国憲法と国民主権／憲法が保障する基本的人権／新しい時代の人権保障と平和主義）</p>
+  </section>
+
+  <!-- ========== QUIZ ========== -->
+  <section id="quiz" class="hidden">
+    <div id="quiz-top">
+      <span id="course-tag"></span>
+      <span id="score-box">スコア 0</span>
+    </div>
+    <div id="dots"></div>
+    <div class="qcard">
+      <div id="q-num"></div>
+      <div id="shiryo"></div>
+      <div id="q-text"></div>
+      <div id="choices"></div>
+      <div id="feedback" class="hidden">
+        <div id="verdict" class="verdict"></div>
+        <div id="gotpt" class="gotpt"></div>
+        <div id="expl" class="expl"></div>
+        <div id="model-wrap"></div>
+        <button id="next-btn" onclick="nextQ()">次へ ▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RESULT ========== -->
+  <section id="result" class="hidden">
+    <div class="result-card">
+      <div id="rank"></div>
+      <div id="stars"></div>
+      <div id="result-msg"></div>
+      <div id="result-score"></div>
+      <div id="result-best"></div>
+      <div id="review" class="review"></div>
+      <div class="btn-row">
+        <button class="btn retry" id="retry-btn" onclick="retry()">もう一度チャレンジ</button>
+        <button class="btn home" onclick="goHome()">コース選択にもどる</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <b>KATEぷら</b>｜つまずきを、プラスに。<br>公民マスター①（定期テスト対策 総まとめ範囲）
+</footer>
+
+<script>
+"use strict";
+/* ================================================================
+   公民マスター①  50点=基礎暗記 / 70点=資料読み取り / 90点=説明・記述
+   ================================================================ */
+
+/* ---------- 50点コース：基礎用語（プールからランダム10問） ---------- */
+const POOL50 = [
+ {q:"人や商品、お金、情報などが国境をこえて移動し、世界の一体化が進むことを何という？",
+  c:["情報化","グローバル化","国際分業","多文化共生"],a:1,
+  e:"国境をこえた移動＝<b>グローバル化</b>。交通やインターネットの発達で進んだよ。"},
+ {q:"それぞれの国や地域が、競争力のある産業に力を入れて生産し、貿易によって交換し合うことを何という？",
+  c:["国際競争","国際協力","国際分業","規制緩和"],a:2,
+  e:"得意なものを作って交換し合う＝<b>国際分業</b>。競い合うのは「国際競争」。"},
+ {q:"情報を正しく読み取り、活用する力を何という？",
+  c:["デジタルデバイド","メディアリテラシー","ビッグデータ","IoT"],a:1,
+  e:"<b>メディアリテラシー</b>。情報格差は「デジタルデバイド」。"},
+ {q:"あらゆる物がインターネットでつながるしくみを何という？",
+  c:["AI","SNS","ICT","IoT"],a:3,
+  e:"Internet of Things＝<b>IoT</b>。AIは人工知能、ICTは情報通信技術。"},
+ {q:"合計特殊出生率の低下による少子化と、平均寿命ののびによる高齢化が進んだ社会を何という？",
+  c:["少子高齢社会","情報社会","格差社会","多文化社会"],a:0,
+  e:"<b>少子高齢社会</b>。社会保障費が増え、一人当たりの負担が大きくなる。"},
+ {q:"親と子ども、あるいは夫婦だけの家族を何という？",
+  c:["拡大家族","単独世帯","核家族","大家族"],a:2,
+  e:"<b>核家族</b>世帯の割合が増加している。一人暮らし（単独世帯）も増加中。"},
+ {q:"能や歌舞伎、年中行事など、長い歴史の中でつちかわれ、人々に受けつがれてきた文化を何という？",
+  c:["多文化","伝統文化","異文化","大衆文化"],a:1,
+  e:"<b>伝統文化</b>。文化財は「文化財保護法」で保存・活用される。"},
+ {q:"文化財の保存と活用について定めた法律は？",
+  c:["文化財保護法","教育基本法","環境基本法","生活保護法"],a:0,
+  e:"<b>文化財保護法</b>。少子高齢化や過疎化で伝統文化のにない手が減っている。"},
+ {q:"社会集団の中で対立が生じたとき、話し合いによって目指すものは？",
+  c:["合意","効率","公正","契約"],a:0,
+  e:"対立 → 話し合い → <b>合意</b>。そのとき「効率と公正」の考え方で判断する。"},
+ {q:"採決のしかたのうち「多数決」で大切にしなければならないことは？",
+  c:["全会一致にすること","少数意見の尊重","時間をかけないこと","代表者だけで決めること"],a:1,
+  e:"多数決は短時間で決められるが、<b>少数意見の尊重</b>が大切。"},
+ {q:"『社会契約論』を著し、人民主権を主張した思想家は？",
+  c:["ロック","モンテスキュー","ルソー","リンカン"],a:2,
+  e:"<b>ルソー</b>＝人民主権。ロック＝社会契約・抵抗権、モンテスキュー＝権力分立。"},
+ {q:"『法の精神』で権力分立（三権分立）を主張した思想家は？",
+  c:["モンテスキュー","ルソー","ロック","マルクス"],a:0,
+  e:"<b>モンテスキュー</b>＝権力分立。セットでロック・ルソーも覚えよう。"},
+ {q:"社会契約説をとなえ、抵抗権を主張した思想家は？",
+  c:["ルソー","モンテスキュー","リンカン","ロック"],a:3,
+  e:"<b>ロック</b>＝社会契約・抵抗権。3人の区別は定期テスト頻出！"},
+ {q:"「人たるに値する生存」の保障など、社会権を世界で初めて取り入れた憲法は？",
+  c:["マグナ・カルタ","ワイマール憲法","大日本帝国憲法","アメリカ独立宣言"],a:1,
+  e:"1919年ドイツの<b>ワイマール憲法</b>。社会権の確立として超頻出。"},
+ {q:"1948年に国際連合の総会で採択され、人権の国際的保障のもとになった宣言は？",
+  c:["フランス人権宣言","世界人権宣言","アメリカ独立宣言","子どもの権利条約"],a:1,
+  e:"<b>世界人権宣言</b>（1948年）。条約化したものが国際人権規約（1966年）。"},
+ {q:"日本国憲法の三つの基本原理は、国民主権・平和主義と、もう1つは？",
+  c:["天皇主権","三権分立","基本的人権の尊重","地方自治"],a:2,
+  e:"<b>国民主権・基本的人権の尊重・平和主義</b>の3つ。絶対に暗記！"},
+ {q:"日本国憲法が公布されたのはいつ？",
+  c:["1945年8月15日","1946年11月3日","1947年5月3日","1950年11月3日"],a:1,
+  e:"<b>公布＝1946年11月3日（文化の日）、施行＝1947年5月3日（憲法記念日）</b>。セットで！"},
+ {q:"日本国憲法で、天皇は日本国および日本国民統合の何とされている？",
+  c:["元首","主権者","象徴","代表"],a:2,
+  e:"<b>象徴</b>（象徴天皇制）。天皇は内閣の助言と承認のもと国事行為のみを行う。"},
+ {q:"憲法第13条「すべて国民は、（　）として尊重される。」",
+  c:["個人","国民","人間","平等"],a:0,
+  e:"<b>個人の尊重</b>（第13条）。幸福追求権の根拠にもなる最重要条文。"},
+ {q:"憲法第25条が保障する「健康で（　）な最低限度の生活を営む権利」は？",
+  c:["平和的","文化的","経済的","衛生的"],a:1,
+  e:"「健康で<b>文化的</b>な最低限度の生活」＝<b>生存権</b>。社会権の中心。"},
+ {q:"自由権のうち、居住・移転・職業選択の自由や財産権の保障があてはまるのは？",
+  c:["精神活動の自由","身体の自由","経済活動の自由","学問の自由"],a:2,
+  e:"<b>経済活動の自由</b>。公共の福祉により精神の自由より広く制限される。"},
+ {q:"労働三権は、団結権・団体行動権と、もう1つは？",
+  c:["団体交渉権","勤労権","請願権","参政権"],a:0,
+  e:"<b>団結権・団体交渉権・団体行動権（争議権）</b>の3つ＝労働基本権。"},
+ {q:"国民の三大義務は、普通教育を受けさせる義務・勤労の義務と、もう1つは？",
+  c:["投票の義務","納税の義務","兵役の義務","奉仕の義務"],a:1,
+  e:"<b>納税の義務</b>（第30条）。大日本帝国憲法の義務は「兵役・納税」だった。"},
+ {q:"環境権や知る権利、プライバシーの権利など、憲法に直接規定のない人権をまとめて何という？",
+  c:["自然権","社会権","新しい人権","請求権"],a:2,
+  e:"<b>新しい人権</b>。幸福追求権（第13条）などが根拠。"},
+ {q:"個人が自分の生き方や生活のしかたを自由に決める権利を何という？",
+  c:["自己決定権","プライバシーの権利","知る権利","環境権"],a:0,
+  e:"<b>自己決定権</b>。インフォームド・コンセントや臓器提供意思表示カードが例。"},
+ {q:"戦争の放棄・戦力の不保持・交戦権の否認を定めた日本国憲法の条文は？",
+  c:["第1条","第9条","第13条","第25条"],a:1,
+  e:"<b>第9条</b>。前文とあわせて平和主義を明記している。"},
+ {q:"核兵器を「持たず、つくらず、持ち込ませず」とする日本の原則を何という？",
+  c:["平和五原則","非核三原則","専守防衛","文民統制"],a:1,
+  e:"<b>非核三原則</b>。1971年に国会で決議された。"},
+ {q:"国や地方公共団体が、国民の請求に応じて持っている情報を開示する制度を何という？",
+  c:["情報公開制度","個人情報保護制度","マイナンバー制度","国民審査制度"],a:0,
+  e:"<b>情報公開制度</b>。「知る権利」に基づいて設けられている。"},
+];
+
+/* ---------- 70点コース：資料読み取り ---------- */
+/* SVGグラフ生成ヘルパー */
+function barChart(title,labels,values,unit,maxV,color){
+  const W=380,H=235,x0=38,x1=366,y0=200,y1=28;
+  const n=values.length,bw=Math.min(28,(x1-x0)/n*0.55),gap=(x1-x0)/n;
+  let s='<div class="shiryo-title">'+title+'</div><svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  for(let g=0;g<=4;g++){const y=y0-(y0-y1)*g/4;
+    s+='<line x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" stroke="#dcebf2" stroke-width="1"/>';
+    s+='<text x="'+(x0-4)+'" y="'+(y+4)+'" font-size="9" fill="#64808c" text-anchor="end">'+(maxV*g/4)+'</text>';}
+  values.forEach((v,i)=>{
+    const cx=x0+gap*i+gap/2, h=(y0-y1)*v/maxV, y=y0-h;
+    s+='<rect x="'+(cx-bw/2)+'" y="'+y+'" width="'+bw+'" height="'+h+'" rx="3" fill="'+color+'"/>';
+    s+='<text x="'+cx+'" y="'+(y-4)+'" font-size="9" fill="#1c5a72" text-anchor="middle" font-weight="bold">'+v+'</text>';
+    s+='<text x="'+cx+'" y="'+(y0+13)+'" font-size="9" fill="#48616d" text-anchor="middle">'+labels[i]+'</text>';});
+  s+='<text x="'+x0+'" y="'+(y1-10)+'" font-size="9.5" fill="#64808c">（'+unit+'）</text>';
+  s+='<line x1="'+x0+'" y1="'+y0+'" x2="'+x1+'" y2="'+y0+'" stroke="#8aa0ab" stroke-width="1.2"/></svg>';
+  return '<div class="shiryo-box">'+s+'</div>';
+}
+function polyPts(vals,labels,x0,x1,y0,y1,maxV,minV){
+  const n=labels.length,gap=(x1-x0)/(n-1);
+  return vals.map((v,i)=> v==null?null:[x0+gap*i, y0-(y0-y1)*(v-minV)/(maxV-minV)]);
+}
+function lineChart(title,labels,series,unit,maxV,minV){
+  const W=380,H=250,x0=40,x1=356,y0=195,y1=30;
+  let s='<div class="shiryo-title">'+title+'</div><svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  for(let g=0;g<=4;g++){const y=y0-(y0-y1)*g/4, lv=minV+(maxV-minV)*g/4;
+    s+='<line x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" stroke="#dcebf2"/>';
+    s+='<text x="'+(x0-4)+'" y="'+(y+4)+'" font-size="9" fill="#64808c" text-anchor="end">'+lv+'</text>';}
+  labels.forEach((lb,i)=>{const x=x0+(x1-x0)/(labels.length-1)*i;
+    s+='<text x="'+x+'" y="'+(y0+14)+'" font-size="9" fill="#48616d" text-anchor="middle">'+lb+'</text>';});
+  series.forEach(sr=>{
+    const pts=polyPts(sr.v,labels,x0,x1,y0,y1,maxV,minV).filter(p=>p);
+    s+='<polyline points="'+pts.map(p=>p[0]+','+p[1]).join(' ')+'" fill="none" stroke="'+sr.col+'" stroke-width="2.6" stroke-linejoin="round"/>';
+    pts.forEach(p=>{s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3" fill="'+sr.col+'"/>';});});
+  let lx=x0;
+  series.forEach(sr=>{
+    s+='<rect x="'+lx+'" y="'+(H-18)+'" width="14" height="4" rx="2" fill="'+sr.col+'"/>';
+    s+='<text x="'+(lx+18)+'" y="'+(H-12)+'" font-size="10" fill="#1c5a72">'+sr.name+'</text>';
+    lx+=18+sr.name.length*10+18;});
+  s+='<text x="'+x0+'" y="'+(y1-12)+'" font-size="9.5" fill="#64808c">（'+unit+'）</text>';
+  s+='<line x1="'+x0+'" y1="'+y0+'" x2="'+x1+'" y2="'+y0+'" stroke="#8aa0ab" stroke-width="1.2"/></svg>';
+  return '<div class="shiryo-box">'+s+'</div>';
+}
+function boueiChart(){
+  const W=380,H=250,x0=38,x1=340,y0=195,y1=30;
+  const labels=["1955","65","75","85","95","2005","15","22"];
+  const bars=[0.13,0.30,1.33,3.14,4.72,4.86,4.98,5.40];      // 兆円 max6
+  const line=[13.6,8.2,6.2,6.0,6.7,5.9,5.2,5.0];             // %  max15
+  const n=labels.length,gap=(x1-x0)/n;
+  let s='<div class="shiryo-title">◆日本の防衛関係費の推移</div><svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  for(let g=0;g<=3;g++){const y=y0-(y0-y1)*g/3;
+    s+='<line x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" stroke="#dcebf2"/>';
+    s+='<text x="'+(x0-4)+'" y="'+(y+4)+'" font-size="9" fill="#64808c" text-anchor="end">'+(6*g/3)+'</text>';
+    s+='<text x="'+(x1+6)+'" y="'+(y+4)+'" font-size="9" fill="#c0392b">'+(15*g/3)+'</text>';}
+  bars.forEach((v,i)=>{
+    const cx=x0+gap*i+gap/2,h=(y0-y1)*v/6,y=y0-h;
+    s+='<rect x="'+(cx-11)+'" y="'+y+'" width="22" height="'+h+'" rx="3" fill="#2fbdea"/>';
+    s+='<text x="'+cx+'" y="'+(y-4)+'" font-size="8.5" fill="#1c5a72" text-anchor="middle" font-weight="bold">'+v.toFixed(2)+'</text>';
+    s+='<text x="'+cx+'" y="'+(y0+13)+'" font-size="9" fill="#48616d" text-anchor="middle">'+labels[i]+'</text>';});
+  const pts=line.map((p,i)=>[x0+gap*i+gap/2, y0-(y0-y1)*p/15]);
+  s+='<polyline points="'+pts.map(p=>p[0]+','+p[1]).join(' ')+'" fill="none" stroke="#e05d5d" stroke-width="2.6"/>';
+  pts.forEach((p,i)=>{s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3" fill="#e05d5d"/>';
+    if(i===0||i===line.length-1){s+='<text x="'+p[0]+'" y="'+(p[1]-7)+'" font-size="9" fill="#c0392b" font-weight="bold" text-anchor="middle">'+line[i]+'%</text>';}});
+  s+='<rect x="'+x0+'" y="'+(H-18)+'" width="14" height="8" fill="#2fbdea"/><text x="'+(x0+18)+'" y="'+(H-10)+'" font-size="10" fill="#1c5a72">防衛関係費（兆円・左軸）</text>';
+  s+='<rect x="'+(x0+170)+'" y="'+(H-16)+'" width="14" height="4" fill="#e05d5d"/><text x="'+(x0+188)+'" y="'+(H-10)+'" font-size="10" fill="#1c5a72">国の予算にしめる割合（%・右軸）</text>';
+  s+='<text x="'+(x1-4)+'" y="'+(y0+13)+'" font-size="8.5" fill="#48616d">年度</text>';
+  s+='<line x1="'+x0+'" y1="'+y0+'" x2="'+x1+'" y2="'+y0+'" stroke="#8aa0ab" stroke-width="1.2"/></svg>';
+  return '<div class="shiryo-box">'+s+'<div style="font-size:10px;color:#7a95a1;text-align:right;">（「防衛白書」より作成）</div></div>';
+}
+function pyramidChart(){
+  // 下→上（年少→高齢）の帯の幅
+  const shapes=[
+    {name:"A",w:[100,92,84,76,68,58,48,38,26,12]},          // 富士山型
+    {name:"B",w:[62,70,76,80,80,76,68,56,38,18]},           // つりがね型
+    {name:"C",w:[36,42,50,60,72,80,76,66,52,26]},           // つぼ型
+  ];
+  const W=380,H=190;
+  let s='<div class="shiryo-title">◆人口ピラミッドの模式図（下が年少・上が高齢）</div><svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  shapes.forEach((sh,gi)=>{
+    const cx=70+gi*120;
+    sh.w.forEach((w,bi)=>{
+      const y=160-bi*14;
+      s+='<rect x="'+(cx-w/2)+'" y="'+y+'" width="'+w+'" height="12" rx="2" fill="'+(bi>=7?'#e08f8f':'#2fbdea')+'" opacity="0.9"/>';});
+    s+='<text x="'+cx+'" y="182" font-size="13" font-weight="bold" fill="#1c5a72" text-anchor="middle">'+sh.name+'</text>';});
+  s+='<rect x="12" y="6" width="10" height="10" fill="#e08f8f"/><text x="26" y="15" font-size="10" fill="#1c5a72">高齢者の層</text>';
+  s+='<rect x="110" y="6" width="10" height="10" fill="#2fbdea"/><text x="124" y="15" font-size="10" fill="#1c5a72">それ以外の層</text>';
+  s+='</svg>';
+  return '<div class="shiryo-box">'+s+'</div>';
+}
+function houChart(){
+  const W=380,H=205;
+  let s='<div class="shiryo-title">◆法の構成</div><svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  s+='<polygon points="190,15 150,70 230,70" fill="#e05d5d" opacity="0.85"/>';
+  s+='<text x="190" y="58" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">憲法</text>';
+  s+='<polygon points="146,76 234,76 268,130 112,130" fill="#f7d000" opacity="0.9"/>';
+  s+='<text x="190" y="110" font-size="13" font-weight="bold" fill="#5c4d00" text-anchor="middle">法律</text>';
+  s+='<polygon points="108,136 272,136 306,190 74,190" fill="#8dc63f" opacity="0.9"/>';
+  s+='<text x="190" y="170" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">命令・規則</text>';
+  s+='<text x="312" y="45" font-size="10" fill="#48616d">上位の法ほど</text><text x="312" y="58" font-size="10" fill="#48616d">強い効力を持つ</text>';
+  s+='<text x="8" y="100" font-size="10" fill="#48616d">国会が制定</text><text x="8" y="168" font-size="10" fill="#48616d">内閣や省庁が</text><text x="8" y="181" font-size="10" fill="#48616d">制定</text>';
+  s+='</svg>';
+  return '<div class="shiryo-box">'+s+'</div>';
+}
+function nenpyoTable(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆人権思想と憲法の歴史</div><table class="shiryo-table">'+
+  '<tr><th style="width:62px;">年代</th><th>できごと</th></tr>'+
+  '<tr><td>1215年</td><td>マグナ・カルタ（イギリス）</td></tr>'+
+  '<tr><td>1689年</td><td>権利章典（イギリス）</td></tr>'+
+  '<tr><td>1776年</td><td>アメリカ独立宣言</td></tr>'+
+  '<tr><td>1789年</td><td>フランス人権宣言</td></tr>'+
+  '<tr><td>1889年</td><td>大日本帝国憲法（日本）</td></tr>'+
+  '<tr><td>1919年</td><td><span class="blank">（ X ）</span>（ドイツ）</td></tr>'+
+  '<tr><td>1946年</td><td>日本国憲法（日本）</td></tr>'+
+  '<tr><td>1948年</td><td>世界人権宣言（国際連合）</td></tr>'+
+  '</table></div>';
+}
+function kaiseiFlow(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆憲法改正の手続き</div><div class="flow">'+
+  '<div class="fbox">国会：衆議院・参議院それぞれで<br>総議員の <span class="blank">（ X ）</span> の賛成</div>'+
+  '<div class="farrow">▼</div>'+
+  '<div class="fbox">国会が「改正の発議」</div>'+
+  '<div class="farrow">▼</div>'+
+  '<div class="fbox">国民投票：有効投票の <span class="blank">（ Y ）</span> の賛成</div>'+
+  '<div class="farrow">▼</div>'+
+  '<div class="fbox">改正の成立 → 天皇が国民の名において公布</div>'+
+  '</div></div>';
+}
+function hikakuTable(){
+  return '<div class="shiryo-box"><div class="shiryo-title">◆大日本帝国憲法と日本国憲法</div><table class="shiryo-table">'+
+  '<tr><th></th><th>大日本帝国憲法</th><th>日本国憲法</th></tr>'+
+  '<tr><td style="font-weight:bold;">制定</td><td>君主が定める欽定憲法</td><td>国民が定める民定憲法</td></tr>'+
+  '<tr><td style="font-weight:bold;">主権者</td><td>天皇</td><td><span class="blank">（ X ）</span></td></tr>'+
+  '<tr><td style="font-weight:bold;">国民の権利</td><td>法律によって制限される臣民の権利</td><td>基本的人権を尊重</td></tr>'+
+  '<tr><td style="font-weight:bold;">戦争と軍隊</td><td>統帥権・徴兵制</td><td>戦争放棄・戦力の不保持</td></tr>'+
+  '</table></div>';
+}
+
+const Q70 = [
+ {sh:boueiChart,
+  q:"資料から読み取れることとして正しいものを1つ選びなさい。",
+  c:["防衛関係費の金額は、1955年から減り続けている",
+     "防衛関係費の金額は増えているが、国の予算にしめる割合は1955年度より低くなっている",
+     "国の予算にしめる割合は、1955年から増え続けている",
+     "2022年度の防衛関係費は約1兆円である"],a:1,
+  e:"棒グラフ（金額）は0.13兆円→5.40兆円と<b>増加</b>。でも折れ線（予算にしめる割合）は13.6%→5.0%と<b>低下</b>。「金額」と「割合」を分けて読むのが資料問題のコツ！"},
+ {sh:()=>lineChart("◆日本の合計特殊出生率と平均寿命の推移",
+    ["1950","60","70","80","90","2000","10","20"],
+    [{name:"女性の平均寿命",v:[61.5,70.2,74.7,78.8,81.9,84.6,86.3,87.7],col:"#e07da0"},
+     {name:"男性の平均寿命",v:[58.0,65.3,69.3,73.4,75.9,77.7,79.6,81.6],col:"#2fbdea"},
+     {name:"合計特殊出生率×20",v:[73,40,42.6,35,30.8,27.2,27.8,26.6],col:"#e05d5d"}],
+    "歳／出生率は20倍で表示：実際は3.65→1.33",100,0),
+  q:"資料から読み取れることとして正しいものを1つ選びなさい。",
+  c:["合計特殊出生率は上がり続けている",
+     "平均寿命は男女とも短くなっている",
+     "出生率が下がる一方で平均寿命がのびており、少子高齢化が進んでいる",
+     "男性の平均寿命は女性より長い"],a:2,
+  e:"出生率は3.65→1.33と<b>低下</b>（少子化）、平均寿命は<b>のびている</b>（高齢化）。この2つの組み合わせが<b>少子高齢化</b>。定期テストでは「この資料と関係の深い語句」としても出るよ。"},
+ {sh:()=>barChart("◆海外で暮らす日本人の数の推移",
+    ["1985","90","95","2000","05","10","15","20"],
+    [48.1,62.0,72.8,81.2,101.3,114.3,131.7,135.8],"万人",140,"#2fbdea"),
+  q:"この資料と最も関係の深い語句を1つ選びなさい。",
+  c:["少子高齢化","情報社会","グローバル化","核家族化"],a:2,
+  e:"海外で暮らす日本人の増加＝人が国境をこえて移動しやすくなった＝<b>グローバル化</b>。定期テスト対策プリントの大問1と同じパターン！"},
+ {sh:()=>lineChart("◆パソコンなどの世帯普及率の推移",
+    ["2000","05","10","15","20"],
+    [{name:"パソコン",v:[50,81,83,77,70],col:"#8dc63f"},
+     {name:"インターネット",v:[34,87,94,96,97],col:"#2fbdea"},
+     {name:"スマートフォン",v:[null,null,10,72,87],col:"#e05d5d"}],
+    "%",100,0),
+  q:"資料から読み取れることとして正しいものを1つ選びなさい。",
+  c:["スマートフォンの世帯普及率は、2010年以降急速に高まった",
+     "パソコンの世帯普及率は2020年に100%をこえた",
+     "インターネットの世帯普及率は2000年の時点で9割をこえていた",
+     "スマートフォンは2000年にはすでに普及していた"],a:0,
+  e:"スマホは2010年ごろ登場し、10%→87%へ<b>急速に普及</b>。この資料は「<b>情報社会（情報化）</b>」と関係が深い資料として出題される。"},
+ {sh:pyramidChart,
+  q:"2020年ごろの日本の人口ピラミッドに最も近い形を、A〜Cから1つ選びなさい。",
+  c:["A","B","C","どれもあてはまらない"],a:2,
+  e:"現在の日本は少子高齢化で、年少人口（下）が少なく高齢者（上）が多い<b>「つぼ型」＝C</b>。Aの「富士山型」は子どもが多い発展途上国型、Bは「つりがね型」。"},
+ {sh:()=>barChart("◆日本で暮らす外国人の数の推移",
+    ["1980","85","90","95","2000","05","10","15","21"],
+    [78.3,85.1,107.5,136.2,168.6,201.2,213.4,223.2,276.1],"万人",300,"#8dc63f"),
+  q:"資料から読み取れることとして正しいものを1つ選びなさい。（2021年の国籍別で最も多いのは中国である）",
+  c:["日本で暮らす外国人の数は減り続けている",
+     "2021年には約276万人となり、1980年の3倍以上に増えている",
+     "2021年の国籍別で最も多いのはブラジルである",
+     "外国人の増加は少子高齢化が原因である"],a:1,
+  e:"78.3万人→276.1万人で<b>3倍以上に増加</b>。国籍別では現在<b>中国が最多</b>。多文化共生・グローバル化と関係の深い資料。"},
+ {sh:nenpyoTable,
+  q:"年表中の（ X ）にあてはまる憲法と、その憲法が世界で初めて保障した権利の組み合わせとして正しいものを1つ選びなさい。",
+  c:["ワイマール憲法 ― 自由権",
+     "ワイマール憲法 ― 社会権",
+     "大日本帝国憲法 ― 平等権",
+     "マグナ・カルタ ― 参政権"],a:1,
+  e:"1919年ドイツの<b>ワイマール憲法</b>は「人たるに値する生存」の保障＝<b>社会権</b>を世界で初めて取り入れた。年表は「自由権・平等権の確立（18世紀）→社会権の確立（20世紀）→人権の国際的保障（世界人権宣言）」の流れでおさえる！"},
+ {sh:houChart,
+  q:"資料から読み取れることとして正しいものを1つ選びなさい。",
+  c:["法律は憲法よりも強い効力を持つ",
+     "憲法に反する法律や命令は無効である",
+     "命令・規則は国会が制定する",
+     "憲法は内閣が制定する"],a:1,
+  e:"憲法は<b>国の最高法規</b>。上位の法ほど強い効力を持ち、<b>憲法に反する法律や命令は無効</b>。法律は国会、命令・規則は内閣や省庁が制定する。"},
+ {sh:kaiseiFlow,
+  q:"図中の（ X ）（ Y ）にあてはまる語句の組み合わせとして正しいものを1つ選びなさい。",
+  c:["X：過半数　Y：3分の2以上",
+     "X：3分の2以上　Y：過半数",
+     "X：3分の2以上　Y：3分の2以上",
+     "X：過半数　Y：過半数"],a:1,
+  e:"発議には各議院の総議員の<b>3分の2以上</b>、国民投票では有効投票の<b>過半数</b>の賛成が必要。最後は<b>天皇が国民の名において公布</b>。数字を入れかえるひっかけに注意！"},
+ {sh:hikakuTable,
+  q:"表中の（ X ）にあてはまる語句を1つ選びなさい。",
+  c:["天皇","国民","内閣","国会"],a:1,
+  e:"日本国憲法の主権者は<b>国民</b>（国民主権）。天皇は主権者ではなく<b>象徴</b>になった。「欽定憲法→民定憲法」「臣民の権利→基本的人権」の対比も頻出。"},
+];
+
+/* ---------- 90点コース：説明・誤文選択＋模範解答 ---------- */
+const Q90 = [
+ {type:"誤文選択",
+  q:"日本国憲法の改正手続きについて述べた文として【誤っているもの】を1つ選びなさい。",
+  c:["国会が改正の発議をするには、各議院の総議員の3分の2以上の賛成が必要である",
+     "国会の発議のあと、国民投票が行われる",
+     "国民投票で有効投票の過半数の賛成があれば、改正が成立する",
+     "改正の成立後、内閣総理大臣が公布する"],a:3,
+  e:"公布するのは内閣総理大臣ではなく<b>天皇</b>。「国民の名において」公布する。",
+  m:"日本国憲法の改正は、衆参両議院の総議員の3分の2以上の賛成で国会が発議し、国民投票で有効投票の過半数の賛成を得ると成立する。成立した改正は、天皇が国民の名において公布する。"},
+ {type:"誤文選択",
+  q:"大日本帝国憲法について述べた文として【誤っているもの】を1つ選びなさい。",
+  c:["主権者は天皇であった",
+     "国民の人権は、生まれながらの権利として無制限に保障されていた",
+     "1889年に発布された",
+     "天皇が定める欽定憲法であった"],a:1,
+  e:"大日本帝国憲法の人権は「生まれながらの権利」ではなく、<b>天皇があたえる臣民の権利</b>で、<b>法律によって制限</b>された。",
+  m:"大日本帝国憲法では、人権は天皇が臣民にあたえるものとされ、法律によって制限される権利であった。"},
+ {type:"誤文選択",
+  q:"立憲主義について述べた文として【誤っているもの】を1つ選びなさい。",
+  c:["立憲主義とは、政府の権力を制限して国民の人権を保障するという考え方である",
+     "憲法は国の最高法規である",
+     "立憲主義は、権力者の意思がすべてを決める「人の支配」による政治を目指す",
+     "憲法に反する法律や命令は無効である"],a:2,
+  e:"立憲主義が目指すのは「人の支配」ではなく<b>「法の支配」</b>。国民が民主的に制定した法によって政治権力を制限する。",
+  m:"立憲主義とは、憲法によって政府の権力を制限し、国民の人権を保障しようとする考え方で、人の支配ではなく法の支配による政治を目指すものである。"},
+ {type:"誤文選択",
+  q:"公共の福祉による人権の制限について述べた文として【誤っているもの】を1つ選びなさい。",
+  c:["公共の福祉とは、個人の利益をこえた社会全体の利益のことである",
+     "感染症による入院措置は、居住・移転の自由の制限の例である",
+     "経済活動の自由よりも、精神の自由のほうが公共の福祉により広く制限される",
+     "他人の名誉を傷つける行為の禁止は、表現の自由の制限の例である"],a:2,
+  e:"逆！<b>経済活動の自由</b>のほうが公共の福祉により<b>広く制限</b>され、精神の自由の制限は限定的。",
+  m:"公共の福祉とは社会全体の利益のことであり、人権と人権とが衝突する場合には、公共の福祉によって人権が制限されることがある。特に経済活動の自由は、精神の自由に比べて広く制限される。"},
+ {type:"説明選択",
+  q:"現代社会で求められる「メディアリテラシー」の説明として最も適切なものを1つ選びなさい。",
+  c:["情報をできるだけたくさん発信する技術のこと",
+     "大量の情報の中から必要な情報を選び、その情報が正しいかどうかを判断して活用する力のこと",
+     "すべての情報を疑わずそのまま受け入れる態度のこと",
+     "情報機器を使わずに生活する力のこと"],a:1,
+  e:"情報社会では誤った情報も大量に流れる。だから「<b>選ぶ・正しさを判断する・活用する</b>」の3点セットで書くのがポイント。",
+  m:"メディアリテラシーとは、大量の情報の中から自分に必要な情報を選び出し、その情報が正しいかどうかを冷静に判断して活用する力のことである。"},
+ {type:"説明選択",
+  q:"少子高齢化が進むと生じる社会の課題として最も適切なものを1つ選びなさい。",
+  c:["年金・医療・介護などの社会保障費が増え、働く世代一人当たりの負担が大きくなる",
+     "子どもの数が増え続けるため、学校が不足する",
+     "高齢者の数が減るため、介護施設が余る",
+     "人口が増え続けるため、住宅が不足する"],a:0,
+  e:"少子高齢化＝<b>支えられる人（高齢者）が増え、支える人（働く世代）が減る</b>。記述では「社会保障費の増加」と「一人当たりの負担増」の両方を入れる。",
+  m:"少子高齢化が進むと、年金・医療・介護などの社会保障費が増加する一方で、それを支える働く世代の人口が減るため、国民一人当たりの経済的な負担が大きくなる。"},
+ {type:"説明選択",
+  q:"1951年に結ばれた日米安全保障条約では、日本がアメリカ軍に基地を提供するかわりに、アメリカはどのような義務を負っているか。最も適切なものを1つ選びなさい。",
+  c:["日本に経済援助を行う義務",
+     "日本が武力攻撃を受けたとき、日本と共同して対処する義務",
+     "日本の法律を制定する義務",
+     "日本を国際連合に加盟させる義務"],a:1,
+  e:"「基地の提供」⇔「<b>日本防衛の義務</b>」という交換関係をおさえる。定期テスト対策プリントの記述問題そのまま！",
+  m:"日米安全保障条約では、日本がアメリカ軍に基地を提供するかわりに、日本が他国から武力攻撃を受けた場合、アメリカは日本と共同して対処する義務を負っている。"},
+ {type:"誤文選択",
+  q:"自衛隊と憲法第9条について述べた文として【誤っているもの】を1つ選びなさい。",
+  c:["憲法第9条は、戦争の放棄・戦力の不保持・交戦権の否認を定めている",
+     "政府は、自衛隊を「自衛のための必要最小限度の実力」であり、戦力にはあたらないという見方に立っている",
+     "自衛隊の最高指揮権は、職業軍人が持つと定められている",
+     "自衛隊は災害派遣や国際協力(PKO)などの活動も行っている"],a:2,
+  e:"自衛隊は<b>文民統制（シビリアン・コントロール）</b>の下に置かれ、最高指揮権は<b>文民である内閣総理大臣</b>が持つ。",
+  m:"自衛隊は文民統制（シビリアン・コントロール）の下に置かれており、職業軍人でない文民である内閣総理大臣が最高指揮権を持つ。"},
+ {type:"説明選択",
+  q:"労働基本権（労働三権）のうち「団体交渉権」とはどのような権利か。「労働条件」の語句を用いた説明として最も適切なものを1つ選びなさい。",
+  c:["労働者が労働組合を結成する権利",
+     "労働組合が労働条件の改善を求めて、使用者と対等な立場で交渉する権利",
+     "要求を実現するためにストライキなどを行う権利",
+     "働く機会を国に求める権利"],a:1,
+  e:"ア＝団結権、ウ＝団体行動権（争議権）、エ＝勤労の権利。<b>3つの権利の区別</b>＋「労働条件」「使用者」「対等」のキーワードで書く。",
+  m:"団体交渉権とは、労働者が労働組合を通じて、労働条件の改善を求めて使用者と対等な立場で交渉する権利である。"},
+ {type:"誤文選択",
+  q:"新しい人権について述べた文として【誤っているもの】を1つ選びなさい。",
+  c:["環境権は、良好な環境を求める権利である",
+     "知る権利に基づいて、情報公開制度が設けられている",
+     "プライバシーの権利は、表現の自由と衝突することがある",
+     "新しい人権は、日本国憲法の条文にすべて明記されている"],a:3,
+  e:"新しい人権は憲法に<b>直接の規定はない</b>。社会の変化にともなって主張されるようになり、<b>幸福追求権（第13条）</b>などが根拠。",
+  m:"新しい人権は、日本国憲法に直接の規定はないが、社会の変化にともなって主張されるようになった人権であり、幸福追求権（憲法第13条）などを根拠として認められるようになった。"},
+];
+
+/* ================= エンジン ================= */
+const COURSE_INFO={
+  "50":{label:"50点コース｜基礎暗記", cls:"c50", pts:10},
+  "70":{label:"70点コース｜資料読み取り", cls:"c70", pts:15},
+  "90":{label:"90点コース｜説明・記述", cls:"c90", pts:20},
+};
+const N=10;
+let S=null;
+
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function el(id){return document.getElementById(id);}
+function show(id){el(id).classList.remove("hidden");}
+function hide(id){el(id).classList.add("hidden");}
+
+function startCourse(course){
+  let qs;
+  if(course==="50") qs=shuffle(POOL50).slice(0,N);
+  else if(course==="70") qs=Q70.slice();
+  else qs=Q90.slice();
+  S={course,qs,idx:0,correct:0,streak:0,score:0,wrongs:[],results:[]};
+  hide("home");hide("result");show("quiz");
+  const info=COURSE_INFO[course];
+  const tag=el("course-tag");
+  tag.textContent=info.label;
+  tag.className="";
+  tag.classList.add(info.cls);
+  tag.id="course-tag";
+  renderQ();
+  window.scrollTo(0,0);
+}
+
+function renderDots(){
+  const d=el("dots");d.innerHTML="";
+  for(let i=0;i<N;i++){
+    const sp=document.createElement("span");
+    sp.className="dot";
+    if(i<S.idx) sp.classList.add(S.results[i]?"done":"miss");
+    else if(i===S.idx) sp.classList.add("now");
+    d.appendChild(sp);
+  }
+}
+
+function renderQ(){
+  const q=S.qs[S.idx];
+  renderDots();
+  el("score-box").textContent="スコア "+S.score;
+  el("q-num").innerHTML="第"+(S.idx+1)+"問 / "+N+(q.type?'<span id="q-type">'+q.type+'</span>':"");
+  el("shiryo").innerHTML = q.sh ? (typeof q.sh==="function"?q.sh():q.sh) : "";
+  el("q-text").innerHTML = q.q.replace("【誤っているもの】",'<span class="wrong-word">【誤っているもの】</span>');
+  const order=shuffle([0,1,2,3]);
+  S.order=order;
+  const marks=["ア","イ","ウ","エ"];
+  const box=el("choices");box.innerHTML="";
+  order.forEach((oi,di)=>{
+    const b=document.createElement("button");
+    b.className="choice";
+    b.innerHTML='<span class="mark">'+marks[di]+'</span><span>'+q.c[oi]+'</span>';
+    b.onclick=()=>answer(di,b);
+    box.appendChild(b);
+  });
+  hide("feedback");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function answer(di,btn){
+  const q=S.qs[S.idx];
+  const picked=S.order[di];
+  const ok=picked===q.a;
+  const buttons=el("choices").querySelectorAll(".choice");
+  buttons.forEach((b,i)=>{
+    b.disabled=true;
+    if(S.order[i]===q.a) b.classList.add("correct");
+    else if(i===di) b.classList.add("wrongpick");
+    else b.classList.add("dim");
+  });
+  S.results.push(ok);
+  let got=0;
+  if(ok){
+    S.correct++;S.streak++;
+    got=COURSE_INFO[S.course].pts+(S.streak>=2?(S.streak-1)*5:0);
+    S.score+=got;
+  }else{
+    S.streak=0;
+    S.wrongs.push({q:q.q,ans:q.c[q.a]});
+  }
+  el("verdict").textContent= ok ? "⭕ 正解！" : "❌ ざんねん…";
+  el("verdict").className="verdict "+(ok?"ok":"ng");
+  el("gotpt").textContent= ok ? "+"+got+"pt"+(S.streak>=2?"（"+S.streak+"連続正解ボーナス！）":"") : "正解は上の緑の選択肢だよ";
+  el("expl").innerHTML="💡 "+q.e;
+  const mw=el("model-wrap");
+  if(q.m){
+    mw.innerHTML='<div class="model-box"><div class="mb-title">✍️ 実際に記述・説明するならこう書く！</div><div class="mb-text">'+q.m+'</div></div>'+
+      '<div class="ondoku"><span class="spk">📢</span><span>模範解答を声に出して2回音読しよう！読めたら「次へ」</span></div>';
+  }else{
+    mw.innerHTML="";
+  }
+  el("next-btn").textContent = S.idx===N-1 ? "結果を見る ▶" : "次へ ▶";
+  show("feedback");
+  renderDotsAfter();
+}
+function renderDotsAfter(){
+  const d=el("dots").children;
+  d[S.idx].className="dot "+(S.results[S.idx]?"done":"miss");
+}
+
+function nextQ(){
+  S.idx++;
+  if(S.idx>=N){showResult();}
+  else{renderQ();}
+}
+
+function showResult(){
+  hide("quiz");show("result");
+  const c=S.correct;
+  let rank,msg;
+  if(c===10){rank="S";msg="パーフェクト！この範囲はマスターだ！";}
+  else if(c>=8){rank="A";msg="すばらしい！あと少しで満点！";}
+  else if(c>=6){rank="B";msg="いい調子！まちがえた問題を復習しよう";}
+  else{rank="C";msg="ここからが本番！もう一度チャレンジしよう";}
+  const rk=el("rank");rk.textContent=rank;rk.className=rank;
+  el("stars").textContent="★".repeat(Math.max(1,Math.ceil(c/2)))+"☆".repeat(5-Math.max(1,Math.ceil(c/2)));
+  el("result-msg").textContent=msg;
+  el("result-score").textContent="正解 "+c+" / "+N+"問　｜　スコア "+S.score+"pt";
+  const key="koumin1-best-"+S.course;
+  const prev=Number(localStorage.getItem(key)||0);
+  if(S.score>prev){localStorage.setItem(key,String(S.score));
+    el("result-best").textContent="🎉 ベストスコア更新！（"+prev+" → "+S.score+"）";
+  }else{
+    el("result-best").textContent="ベストスコア："+Math.max(prev,S.score)+"pt";
+  }
+  const rv=el("review");
+  if(S.wrongs.length){
+    rv.innerHTML="<h3>📒 まちがえた問題の復習</h3>"+
+      S.wrongs.map(w=>'<div class="review-item">'+w.q.replace("【誤っているもの】","【誤っているもの】")+'<br><b>正解：'+w.ans+'</b></div>').join("");
+  }else{
+    rv.innerHTML="";
+  }
+  updateBest();
+  window.scrollTo(0,0);
+}
+
+function retry(){startCourse(S.course);}
+function goHome(){hide("quiz");hide("result");show("home");updateBest();window.scrollTo(0,0);}
+
+function updateBest(){
+  ["50","70","90"].forEach(cs=>{
+    const v=localStorage.getItem("koumin1-best-"+cs);
+    el("best-"+cs).textContent = v ? "ベスト："+v+"pt" : "ベスト：まだ記録なし";
+  });
+}
+updateBest();
+</script>
+</body>
+</html>
