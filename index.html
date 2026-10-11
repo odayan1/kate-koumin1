@@ -44,6 +44,25 @@ main{max-width:760px;margin:0 auto;padding:16px 14px 50px;}
 .c50 .badge{background:var(--green);} .c70 .badge{background:var(--blue);} .c90 .badge{background:#d4a900;}
 .range-note{margin-top:14px;font-size:11.5px;color:#64808c;text-align:center;}
 
+/* ===== welcome（0ページ目） ===== */
+.wl-card{background:#fff;border-radius:16px;padding:18px 16px;box-shadow:0 2px 8px rgba(31,120,150,.10);border-top:6px solid var(--blue);}
+.wl-card h2{font-size:17px;color:#1491bd;margin-bottom:8px;}
+.wl-card>p{font-size:14px;margin-bottom:10px;}
+.wl-alert{background:#fdeeee;border:2px solid var(--red);border-radius:12px;padding:11px 13px;font-size:13.5px;line-height:1.75;margin-bottom:14px;}
+.wl-alert b{color:#c0392b;}
+.wl-steps{display:flex;flex-direction:column;gap:2px;margin-bottom:14px;}
+.wl-step{border-radius:12px;padding:10px 13px;border-left:7px solid;}
+.wl-step.s50{background:#f3f9ea;border-color:var(--green);}
+.wl-step.s70{background:#eaf7fc;border-color:var(--blue);}
+.wl-step.s90{background:#fffbe8;border-color:var(--yellow);}
+.wl-pt{font-size:12px;font-weight:900;}
+.s50 .wl-pt{color:#5f9a1d;} .s70 .wl-pt{color:#1491bd;} .s90 .wl-pt{color:#9c7c00;}
+.wl-h{font-size:15px;font-weight:900;margin:1px 0 2px;}
+.wl-d{font-size:12.5px;color:#48616d;}
+.wl-arrow{text-align:center;color:#8aa0ab;font-weight:900;font-size:13px;line-height:1.2;}
+.wl-note{background:#eef7fb;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.75;margin-bottom:14px;}
+.wl-link{display:block;margin:14px auto 0;background:none;border:none;color:#1491bd;font:inherit;font-size:13px;font-weight:800;text-decoration:underline;cursor:pointer;}
+
 /* ===== set picker ===== */
 .set-grid{display:grid;gap:10px;}
 .setbtn{background:#fff;border:2px solid #d7e9f1;border-radius:14px;padding:13px 15px;text-align:left;cursor:pointer;font:inherit;color:inherit;box-shadow:0 2px 6px rgba(31,120,150,.08);display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;}
@@ -182,8 +201,45 @@ footer b{color:var(--blue);}
 </header>
 
 <main>
+  <!-- ========== WELCOME（0ページ目：はじめに） ========== -->
+  <section id="welcome">
+    <div class="wl-card">
+      <h2>👋 はじめに ― このアプリの使い方</h2>
+      <p>このアプリには <b>50点・70点・90点</b> の3つのコースがあるよ。</p>
+      <div class="wl-alert">
+        ⚠️ <b>いきなり90点コースからはやらないで！</b><br>
+        90点コースの説明問題は、50点コースの「用語」と70点コースの「資料の読み方」を<b>部品として組み立てて</b>答える問題。土台がないと解けないんだ。<br>
+        <b>50点 → 70点 → 90点</b> の順に、ちょっとずつ積み重ねていこう！
+      </div>
+      <div class="wl-steps">
+        <div class="wl-step s50">
+          <div class="wl-pt">STEP 1｜50点コース</div>
+          <div class="wl-h">暗記問題が中心</div>
+          <div class="wl-d">テストに必ず出る基本用語を、4択の穴うめでおぼえる。まずはここで知識の「部品」をそろえよう。</div>
+        </div>
+        <div class="wl-arrow">▼</div>
+        <div class="wl-step s70">
+          <div class="wl-pt">STEP 2｜70点コース</div>
+          <div class="wl-h">資料・グラフの読み取りが中心</div>
+          <div class="wl-d">グラフ・年表・図・表を見て答える。おぼえた用語を「資料の中で使う」練習で、差がつくところ。</div>
+        </div>
+        <div class="wl-arrow">▼</div>
+        <div class="wl-step s90">
+          <div class="wl-pt">STEP 3｜90点コース</div>
+          <div class="wl-h">説明・記述問題に対応</div>
+          <div class="wl-d">「〜を説明しなさい」に答える力をつける。正しい部品を選ぶと、そのまま記述の模範解答が完成するよ。</div>
+        </div>
+      </div>
+      <div class="wl-note">
+        📱 1プレイは10問。<br>
+        📒 最後の結果画面で、まちがえた問題を「なぜ違うのか」までくわしく解説するよ。<b>ここを読むのが一番伸びる！</b>
+      </div>
+      <button class="btn retry" onclick="closeWelcome()">わかった！コースを選ぶ ▶</button>
+    </div>
+  </section>
+
   <!-- ========== HOME ========== -->
-  <section id="home">
+  <section id="home" class="hidden">
     <div class="lead">
       目指す点数のコースを選ぼう！同じ範囲を <b>50点（暗記）→ 70点（資料読み取り）→ 90点（説明できる）</b> と段階的にレベルアップしていくよ。1プレイ10問。
     </div>
@@ -213,6 +269,7 @@ footer b{color:var(--blue);}
         <span class="best">全20問｜説明セット①②</span>
       </button>
     </div>
+    <button class="wl-link" onclick="openWelcome()">📖 はじめに（使い方）をもう一度読む</button>
     <p class="range-note">出題範囲：公民 第1〜4章（現代社会と私たちの暮らし／日本国憲法と国民主権／憲法が保障する基本的人権／新しい時代の人権保障と平和主義）<br>※収録問題はすべて KATE APP のオリジナル問題です。</p>
   </section>
 
@@ -1594,8 +1651,10 @@ function reviewCard(w){
   return h+'</div>';
 }
 
+function closeWelcome(){hide("welcome");show("home");window.scrollTo(0,0);}
+function openWelcome(){hide("home");show("welcome");window.scrollTo(0,0);}
 function retry(){startSet(S.setIdx);}
-function goHome(){hide("quiz");hide("result");hide("sets");hide("intro90");show("home");window.scrollTo(0,0);}
+function goHome(){hide("quiz");hide("result");hide("sets");hide("intro90");hide("welcome");show("home");window.scrollTo(0,0);}
 function backToSets(){hide("quiz");hide("result");renderSets();show("sets");window.scrollTo(0,0);}
 </script>
 </body>
