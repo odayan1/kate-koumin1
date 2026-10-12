@@ -187,6 +187,68 @@ footer b{color:var(--blue);}
   .course-grid{grid-template-columns:repeat(3,1fr);}
   .brand-txt h1{font-size:19px;}
 }
+#choices>*{min-width:0;}
+.num-row{display:flex;align-items:center;gap:8px;background:#f4fafd;border:2px solid #d7e9f1;border-radius:12px;padding:8px 12px;}
+.num-row .nl{font-weight:900;color:var(--red);min-width:22px;font-size:16px;}
+.num-row input{flex:1;min-width:0;font-size:20px;font-weight:800;padding:8px 10px;border:2px solid #9ed3ea;border-radius:10px;font-family:inherit;text-align:right;color:var(--ink);background:#fff;}
+.num-row .nu{font-weight:800;font-size:15px;}
+.num-row.nok{background:#f0f8e2;border-color:var(--green);}
+.num-row.nng{background:#fdeaea;border-color:var(--red);}
+.ord-item .ono{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#fff;border:2px dashed #9ed3ea;font-weight:900;color:#fff;}
+.ord-item.sel .ono{background:var(--blue);border:2px solid var(--blue);}
+.ord-item.sel .mark::after{content:"";}
+.ord-btns{text-align:right;}
+.ord-reset{background:#fff;border:1.5px solid #9ed3ea;color:#1491bd;border-radius:999px;padding:5px 14px;font-weight:700;font-family:inherit;font-size:13px;cursor:pointer;}
+/* ===== lab ===== */
+.lab-entry{display:flex;align-items:center;gap:12px;width:100%;margin-top:12px;background:linear-gradient(135deg,#f3eefe,#eaf7fd);border:2px solid #c9b8f2;border-radius:16px;padding:14px 16px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;box-shadow:0 2px 8px rgba(110,80,200,.12);}
+.lab-entry .le-ic{font-size:30px;}
+.lab-entry b{font-size:16px;color:#6a4fc4;}
+.lab-entry small{font-size:11.5px;color:#48616d;}
+.lab-entry .le-go{margin-left:auto;color:#6a4fc4;font-weight:900;}
+.lab-head{font-size:17px;font-weight:900;color:#6a4fc4;margin:2px 0 10px;}
+.lab-card{background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(31,120,150,.10);}
+.lab-lbl{font-size:12px;font-weight:800;color:#1491bd;margin:10px 0 4px;}
+.lab-note{font-size:12px;color:#48616d;margin:6px 0;}
+.seg{display:flex;flex-wrap:wrap;gap:6px;}
+.segbtn{flex:1;min-width:64px;background:#f4fafd;border:2px solid #d7e9f1;border-radius:999px;padding:8px 10px;font:inherit;font-size:13.5px;font-weight:800;color:var(--ink);cursor:pointer;}
+.segbtn.on{background:var(--blue);border-color:var(--blue);color:#fff;}
+.segbtn:disabled{opacity:.4;cursor:default;}
+.lab-pun{border-collapse:separate;border-spacing:5px;margin:8px auto;}
+.lab-pun th{background:#e5f3f9;border-radius:8px;padding:6px 14px;font-size:15px;color:#1c5a72;}
+.lab-pun th.corner{font-size:10px;padding:4px;background:none;color:#7a95a1;}
+.lab-pun td{border-radius:10px;padding:7px 18px;text-align:center;font-size:17px;}
+.lab-pun td small{font-size:11px;font-weight:700;}
+.lab-pun td.dom{background:#e3f0ff;border:2px solid #9cc4f0;}
+.lab-pun td.rec{background:#fdeaea;border:2px solid #f1a9a9;}
+.lab-res{background:#eef7fb;border-radius:12px;padding:10px 12px;font-size:13.5px;margin:8px 0;line-height:1.7;}
+.lab-res small{font-size:11.5px;color:#48616d;}
+.lab-bar{display:flex;height:22px;border-radius:999px;overflow:hidden;margin:6px 0 2px;background:#e1edf2;}
+.lab-bar span{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;transition:width .3s;}
+.b-dom{background:#2f84d0;} .b-rec{background:#e05d5d;}
+.lab-tip{background:#fffbe8;border:1.5px solid #f2dc7a;border-radius:12px;padding:9px 12px;font-size:12.5px;margin-top:8px;line-height:1.7;}
+.lab-svg{width:100%;height:auto;display:block;margin:6px 0;}
+.lab-ctrl{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.lab-steps{display:flex;justify-content:center;gap:6px;}
+.lab-steps span{width:26px;height:26px;border-radius:50%;background:#e1edf2;color:#7a95a1;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;}
+.lab-steps span.done{background:#cfe8b0;color:#4f7a1e;} .lab-steps span.on{background:var(--blue);color:#fff;}
+.lab-big{font-size:22px;font-weight:900;text-align:center;color:#1c3a47;}
+.lab-big small{font-size:13px;color:#5b7884;margin-left:4px;}
+.lab-range{width:100%;margin:8px 0;accent-color:#6a4fc4;height:28px;}
+.ms-flow{margin:10px 0;}
+.ms-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:4px 0;}
+.ms-arr{font-size:11px;font-weight:800;color:#1491bd;text-align:center;line-height:1.2;}
+.ms-arr.big{font-size:13px;margin:2px 0;}
+.lab-cell{text-align:center;}
+.lab-cell .lc-in{width:84px;height:84px;border:2.5px solid #9ed3ea;border-radius:50%;background:#fff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;margin:0 auto;}
+.lab-cell.small .lc-in{width:66px;height:66px;padding-bottom:16px;}
+.lab-cell.kid .lc-in{border-color:#8dc63f;background:#f7fcef;}
+.lab-cell .lc-l{font-size:11px;font-weight:800;margin-top:2px;}
+.cbar{display:inline-block;width:8px;border-radius:4px;margin:0 2px;}
+.kz-flow{margin:8px 0;display:flex;flex-direction:column;gap:3px;}
+.kz-box{border-radius:10px;padding:7px 11px;font-size:13px;border:2px solid;}
+.kz-box.ok{background:#f0f8e2;border-color:#8dc63f;} .kz-box.ng{background:#fdeaea;border-color:#e05d5d;} .kz-box.wait{background:#f2f5f7;border-color:#d3dde2;color:#8aa0ab;}
+.kz-box small{font-size:11.5px;}
+.kz-arr{text-align:center;color:#1491bd;font-weight:900;line-height:1;}
 </style>
 </head>
 <body>
@@ -221,7 +283,7 @@ footer b{color:var(--blue);}
         <div class="wl-step s70">
           <div class="wl-pt">STEP 2｜70点コース</div>
           <div class="wl-h">資料・グラフの読み取りが中心</div>
-          <div class="wl-d">グラフ・年表・図・表を見て答える。おぼえた用語を「資料の中で使う」練習で、差がつくところ。</div>
+          <div class="wl-d">グラフ・年表・図・表を見て、選択・<b>数値入力</b>・<b>並べ替え</b>で答える。おぼえた用語を「資料の中で使う」練習で、差がつくところ。</div>
         </div>
         <div class="wl-arrow">▼</div>
         <div class="wl-step s90">
@@ -232,6 +294,7 @@ footer b{color:var(--blue);}
       </div>
       <div class="wl-note">
         📱 1プレイは10問。<br>
+        🧪 ホームの「インタラクティブ教材」で、図を動かして理解することもできるよ。<br>
         📒 最後の結果画面で、まちがえた問題を「なぜ違うのか」までくわしく解説するよ。<b>ここを読むのが一番伸びる！</b>
       </div>
       <button class="btn retry" onclick="closeWelcome()">わかった！コースを選ぶ ▶</button>
@@ -257,7 +320,7 @@ footer b{color:var(--blue);}
         <span class="badge">差がつく</span>
         <div class="pt">70<small>点コース</small></div>
         <h2>資料・グラフを読み取る</h2>
-        <p>グラフ・年表・図を見て答える資料問題。読み取りのコツをつかもう！</p>
+        <p>グラフ・年表・図を見て答える資料問題。<b>選択・数値入力・並べ替え</b>の3タイプ！</p>
         <span class="best">全20問｜資料セット①②</span>
       </button>
       <button class="course c90" id="btn-c90" onclick="startCourse('90')">
@@ -269,9 +332,17 @@ footer b{color:var(--blue);}
         <span class="best">全20問｜説明セット①②</span>
       </button>
     </div>
+    <button class="lab-entry" onclick="openLab()">
+      <span class="le-ic">🧪</span>
+      <span><b>インタラクティブ教材</b><br><small>憲法改正シミュレーター・人口ピラミッドの移り変わり｜動かして理解！</small></span>
+      <span class="le-go">▶</span>
+    </button>
     <button class="wl-link" onclick="openWelcome()">📖 はじめに（使い方）をもう一度読む</button>
     <p class="range-note">出題範囲：公民 第1〜4章（現代社会と私たちの暮らし／日本国憲法と国民主権／憲法が保障する基本的人権／新しい時代の人権保障と平和主義）<br>※収録問題はすべて KATE APP のオリジナル問題です。</p>
   </section>
+
+  <!-- ========== LAB（インタラクティブ教材） ========== -->
+  <section id="lab" class="hidden"><div id="lab-body"></div></section>
 
   <!-- ========== SET PICKER ========== -->
   <section id="sets" class="hidden">
@@ -755,7 +826,7 @@ function hikakuTable(){
   '</table></div>';
 }
 
-const Q70 = [
+const Q70_OLD = [
  {sh:boueiChart,
   q:"資料から読み取れることとして正しいものを1つ選びなさい。",
   c:["防衛関係費の金額は、1955年から減り続けている",
@@ -930,7 +1001,7 @@ function donorCard(){
 }
 
 /* --- 資料セット②（10問） --- */
-const Q70B = [
+const Q70B_OLD = [
  {sh:()=>barChart("◆インターネットに関わる犯罪の検挙件数の推移",
     ["2005","10","15","20"],[3161,5741,8113,9875],"件",10000,"#e05d5d"),
   q:"資料から読み取れることとして正しいものを1つ選びなさい。",
@@ -995,7 +1066,7 @@ const Q70B = [
   e:"臓器提供意思表示カード＝臓器を提供するかどうかを<b>自分であらかじめ決めておく</b>→<b>自己決定権</b>。インフォームド・コンセントも同じ仲間。"},
 ];
 
-attachW(Q70,[
+attachW(Q70_OLD,[
  ["棒グラフ（<b>金額</b>・左軸）は0.13兆円→5.40兆円と<b>増え続けている</b>。下がっているのは折れ線の「割合」のほう。金額と割合を取り違えた。",null,
   "折れ線（<b>割合</b>・右軸）は13.6%→5.0%と<b>下がっている</b>。増えているのは棒グラフの「金額」のほう。",
   "2022年度の棒は<b>5.40＝約5.4兆円</b>。目盛りの単位（兆円）と数字をよく確認しよう。"],
@@ -1027,7 +1098,7 @@ attachW(Q70,[
   "「内閣」は<b>行政権</b>を持つ機関。主権者ではない。",
   "「国会」は国権の最高機関だが、主権者ではない。国会は主権者である<b>国民の代表</b>が集まる場。"],
 ]);
-attachW(Q70B,[
+attachW(Q70B_OLD,[
  ["3161件→9875件と<b>増え続けている</b>。",null,
   "資料からは読み取れないうえ、事実でもない。資料にないことを言い切る選択肢は×。",
   "インターネット犯罪は<b>情報社会（情報化）</b>と関係が深い資料。"],
@@ -1351,6 +1422,137 @@ const Q90B = [
   m:"NGOとは、①非政府組織の略称で、②社会貢献を目的として、③国境をこえて国際的に活動する一般市民の団体である。"},
 ];
 
+
+/* ---------- 70点コース v6：選択＋数値入力（グラフ読み取り）＋並べ替え ---------- */
+const Q70 = [
+ Q70_OLD[0], Q70_OLD[1],
+ {kind:"num",sh:Q70_OLD[2].sh,
+  q:"2020年に海外で暮らす日本人の数は、1985年のおよそ何倍か。小数第2位を四捨五入して、小数第1位まで答えなさい。",
+  blanks:[{l:"",a:2.8,u:"倍",tol:0.05,miss:{"87.7":"87.7は<b>差</b>（何万人増えたか）。「何倍」は<b>割り算</b>：135.8÷48.1。","2.9":"四捨五入の位置を確認。135.8÷48.1＝2.82…→ 小数第2位の「2」を四捨五入して<b>2.8</b>。","3":"「小数第1位まで」と指示がある。<b>2.8</b>と答える。","0.4":"割る順番が逆。<b>新しい年÷古い年</b>（135.8÷48.1）。"}}],
+  e:"何倍＝<b>あとの値÷はじめの値</b>＝135.8÷48.1＝2.82…→ <b>約2.8倍</b>。海外で暮らす日本人の増加は<b>グローバル化</b>と関係の深い資料。"},
+ {kind:"num",sh:Q70_OLD[3].sh,
+  q:"2010年から2020年までの10年間で、スマートフォンの世帯普及率は何ポイント上がったか。",
+  blanks:[{l:"",a:77,u:"ポイント",miss:{"87":"87は2020年の<b>普及率そのもの</b>。2010年の10%を<b>引く</b>。","8.7":"8.7は<b>何倍か</b>（87÷10）。問われているのは<b>差</b>（何ポイント上がったか）。","97":"97は<b>インターネット</b>の普及率。線の色（凡例）を確認しよう。"}}],
+  e:"87%－10%＝<b>77ポイント</b>。％どうしの差は「％」ではなく<b>「ポイント」</b>で表す。スマホの急速な普及＝<b>情報化</b>。"},
+ Q70_OLD[4],
+ {kind:"order",
+  q:"日本の平和主義と防衛に関するできごとを、古い順にタップして並べなさい。",
+  items:["日本国憲法の公布","日米安全保障条約に調印","自衛隊が発足","国会で非核三原則を決議","PKO協力法が成立し、自衛隊をカンボジアへ派遣"],
+  e:"<b>憲法公布（1946）→ 日米安保（1951）→ 自衛隊（1954）→ 非核三原則（1971）→ PKO協力法（1992）</b>。年表問題は<b>前後関係</b>が命！",
+  w:"多いミスは<b>日米安保（1951）と自衛隊（1954）</b>の入れかえ。日米安保が先。また、自衛隊は<b>憲法公布より後</b>にできた。PKO協力法は1990年代で一番新しい。"},
+ Q70_OLD[6], Q70_OLD[7], Q70_OLD[8], Q70_OLD[9],
+];
+const Q70B = [
+ {kind:"num",sh:Q70B_OLD[0].sh,
+  q:"2020年のインターネットに関わる犯罪の検挙件数は、2005年のおよそ何倍か。小数第2位を四捨五入して、小数第1位まで答えなさい。",
+  blanks:[{l:"",a:3.1,u:"倍",tol:0.05,miss:{"6714":"6714は<b>差</b>（何件増えたか）。「何倍」は<b>割り算</b>：9875÷3161。","3":"「小数第1位まで」と指示がある。<b>3.1</b>と答える。","0.3":"割る順番が逆。<b>新しい年÷古い年</b>（9875÷3161）。"}}],
+  e:"9875÷3161＝3.12…→ <b>約3.1倍</b>。情報社会では個人情報の流出などの犯罪が課題で、<b>メディアリテラシー</b>が大切。"},
+ Q70B_OLD[1],
+ {kind:"order",
+  q:"人権思想と憲法の歴史に関するできごとを、古い順にタップして並べなさい。",
+  items:["マグナ・カルタ（イギリス）","権利章典（イギリス）","アメリカ独立宣言","フランス人権宣言","ワイマール憲法（ドイツ）","世界人権宣言（国際連合）"],
+  e:"<b>マグナ・カルタ（1215）→ 権利章典（1689）→ アメリカ独立宣言（1776）→ フランス人権宣言（1789）→ ワイマール憲法（1919）→ 世界人権宣言（1948）</b>。イギリス→アメリカ→フランス→ドイツ→国連の流れ。",
+  w:"<b>アメリカ独立宣言（1776）とフランス人権宣言（1789）</b>の入れかえが一番多いミス。アメリカが先！ワイマール憲法は社会権を初めて保障した<b>20世紀</b>の憲法。"},
+ Q70B_OLD[3], Q70B_OLD[4], Q70B_OLD[5], Q70B_OLD[6], Q70B_OLD[7],
+ {kind:"order",
+  q:"日本国憲法の改正の手続きを、正しい順にタップして並べなさい。",
+  items:["衆議院・参議院それぞれで、総議員の3分の2以上が賛成する","国会が、国民に対して憲法改正を発議する","国民投票で、有効投票の過半数が賛成する","天皇が、国民の名において公布する"],
+  e:"<b>各議院で総議員の3分の2以上 → 国会が発議 → 国民投票で過半数 → 天皇が公布</b>。数字は「<b>国会は3分の2、国民は過半数</b>」とセットで覚える。",
+  w:"<b>国民投票は発議のあと</b>。国会が発議しないと国民投票はできない。公布するのは内閣総理大臣ではなく<b>天皇</b>（国事行為）。"},
+ Q70B_OLD[9],
+];
+
+/* ================= 🧪 インタラクティブ教材（公民） ================= */
+const LABS=[
+ {t:"⚖️ 憲法改正シミュレーター",d:"賛成の数を動かして、改正が成立するか判定。法律とのちがいも分かる",f:labKaisei},
+ {t:"👥 人口ピラミッドの移り変わり",d:"1950年→2050年。富士山型からつぼ型へ、少子高齢化が目で見える",f:labPyramid},
+];
+let labTimer=null;
+function stopLabTimer(){if(labTimer){clearInterval(labTimer);labTimer=null;}}
+function openLab(){hide("home");hide("welcome");show("lab");renderLabMenu();}
+function renderLabMenu(){
+  stopLabTimer();
+  let h='<div class="lead">🧪 <b>さわって理解する教材</b>だよ。スライダーやボタンを動かして、教科書の図や数字が「どういう意味なのか」を確かめよう。</div><div class="set-grid">';
+  LABS.forEach((L,i)=>{h+='<button class="setbtn" onclick="labOpen('+i+')"><span><span class="sn">'+L.t+'</span><br><span class="sd">'+L.d+'</span></span><span class="sb">ひらく ▶</span></button>';});
+  h+='</div><div class="btn-row"><button class="btn home" onclick="goHome()">ホームにもどる</button></div>';
+  el("lab-body").innerHTML=h;window.scrollTo(0,0);
+}
+function labOpen(i){
+  stopLabTimer();
+  el("lab-body").innerHTML='<div class="lab-head">'+LABS[i].t+'</div><div id="lab-x" class="lab-card"></div>'+
+    '<div class="btn-row"><button class="btn home" onclick="renderLabMenu()">教材一覧にもどる</button></div>';
+  LABS[i].f(el("lab-x"));window.scrollTo(0,0);
+}
+function seg(opts,cur,fn){return '<div class="seg">'+opts.map(o=>'<button class="segbtn'+(o[0]===cur?' on':'')+'" onclick="'+fn+'(\''+o[0]+'\')">'+o[1]+'</button>').join("")+'</div>';}
+
+/* ---------- 1. 憲法改正シミュレーター ---------- */
+const KS={shu:465,san:248};
+let KZ={mode:"ken",a:320,b:150,v:55};
+function kzMode(m){KZ.mode=m;labKaiseiShell();kzUpd();}
+function labKaisei(){KZ={mode:"ken",a:320,b:150,v:55};labKaiseiShell();kzUpd();}
+function labKaiseiShell(){
+  const ken=KZ.mode==="ken";
+  el("lab-x").innerHTML=seg([["ken","憲法の改正"],["hou","（くらべる）法律の制定"]],KZ.mode,"kzMode")+
+   '<div class="lab-note">'+(ken?'衆議院 465人・参議院 248人（定数）。<b>全員出席</b>として考えよう。':'法律は、衆議院・参議院それぞれで<b>出席議員の過半数</b>の賛成で成立（国民投票なし）。全員出席として考えよう。')+'</div>'+
+   '<div class="lab-lbl">衆議院の賛成：<b id="kz-a"></b></div><input type="range" class="lab-range" min="0" max="465" value="'+KZ.a+'" oninput="KZ.a=+this.value;kzUpd()">'+
+   '<div class="lab-lbl">参議院の賛成：<b id="kz-b"></b></div><input type="range" class="lab-range" min="0" max="248" value="'+KZ.b+'" oninput="KZ.b=+this.value;kzUpd()">'+
+   (ken?'<div class="lab-lbl">国民投票の賛成（有効投票のうち）：<b id="kz-v"></b></div><input type="range" class="lab-range" min="0" max="100" value="'+KZ.v+'" oninput="KZ.v=+this.value;kzUpd()">':'')+
+   '<div id="kz-flow"></div>'+
+   '<div class="lab-tip">💡 憲法は国の<b>最高法規</b>。だから法律（出席議員の過半数）よりも<b>きびしい条件</b>：<b>国会は総議員の3分の2以上</b>で発議 → <b>国民投票で過半数</b>。最後は<b>天皇が国民の名において公布</b>（国事行為）。</div>';
+}
+function kzUpd(){
+  const ken=KZ.mode==="ken";
+  const needA=ken?Math.ceil(KS.shu*2/3):Math.floor(KS.shu/2)+1, needB=ken?Math.ceil(KS.san*2/3):Math.floor(KS.san/2)+1;
+  const okA=KZ.a>=needA, okB=KZ.b>=needB, okV=KZ.v>50;
+  el("kz-a").textContent=KZ.a+"人 / 必要 "+needA+"人以上";
+  el("kz-b").textContent=KZ.b+"人 / 必要 "+needB+"人以上";
+  if(ken) el("kz-v").textContent=KZ.v+"% / 必要 過半数（50%より多い）";
+  const box=(ok,t,sub,wait)=>'<div class="kz-box '+(wait?"wait":ok?"ok":"ng")+'"><b>'+(wait?"⏸":ok?"✅":"❌")+" "+t+'</b>'+(sub?'<br><small>'+sub+'</small>':'')+'</div>';
+  let h='<div class="kz-flow">';
+  if(ken){
+    const hatsugi=okA&&okB;
+    h+=box(okA,"衆議院","総議員の3分の2以上 → "+(okA?"クリア":"あと"+(needA-KZ.a)+"人"))+box(okB,"参議院","総議員の3分の2以上 → "+(okB?"クリア":"あと"+(needB-KZ.b)+"人"))+
+      '<div class="kz-arr">▼</div>'+box(hatsugi,"国会が憲法改正を発議",hatsugi?"国民投票へ進める":"どちらかの院で3分の2に届かず、発議できない")+
+      '<div class="kz-arr">▼</div>'+box(okV,"国民投票","有効投票の過半数 → "+(okV?"賛成多数":"過半数に届かない"),!hatsugi)+
+      '<div class="kz-arr">▼</div>'+box(hatsugi&&okV,hatsugi&&okV?"改正が成立 → 天皇が国民の名において公布":"改正は成立しない","",!hatsugi);
+  }else{
+    h+=box(okA,"衆議院","出席議員の過半数 → "+(okA?"可決":"否決"))+box(okB,"参議院","出席議員の過半数 → "+(okB?"可決":"否決"))+
+      '<div class="kz-arr">▼</div>'+box(okA&&okB,okA&&okB?"法律が成立（国民投票は不要）":"両院で可決されず、成立しない",okA!==okB?"※実際は、衆議院で出席議員の3分の2以上で再可決すれば成立する（衆議院の優越）":"");
+  }
+  el("kz-flow").innerHTML=h+'</div>';
+}
+
+/* ---------- 2. 人口ピラミッドの移り変わり ---------- */
+const PY={ // 10歳ごとの人口の割合（%・おおよそ／模式化）、3区分（%）
+ "1950":{b:[25,20,16,12,10,8,5.5,2.5,0.5],k:[35.4,59.6,4.9],shape:"富士山型（ピラミッド型）",note:"子どもが多く、高齢者が少ない。出生率も死亡率も高い。"},
+ "1970":{b:[16.5,16.5,19,15,12,9,6.5,3.5,1],k:[24.0,68.9,7.1],shape:"つりがね型へ",note:"出生率が下がり、すそ（子ども）が細くなりはじめる。"},
+ "1990":{b:[10.7,14.5,13.5,13,16,13,10,6,2.4],k:[18.2,69.7,12.1],shape:"つりがね型",note:"子どもの割合がさらに下がり、高齢者が増えはじめる。"},
+ "2020":{b:[7.7,8.8,10,11.3,14.4,13,12.7,13,9.1],k:[11.9,59.5,28.6],shape:"つぼ型",note:"子どもが少なく高齢者が多い＝<b>少子高齢化</b>。約3.5人に1人が65歳以上。"},
+ "2050":{b:[6.8,7.6,8.5,9.2,10.4,11.6,13,14,18.9],k:[10.4,52.5,37.1],shape:"つぼ型（さらに進む）※推計",note:"約2.7人に1人が65歳以上になると推計されている。社会保障を支える世代の負担が重くなる。"},
+};
+let PYY="1950";
+function pySet(y){stopLabTimer();PYY=y;pyRender();}
+function pyPlay(){stopLabTimer();const ys=Object.keys(PY);let i=0;PYY=ys[0];pyRender();labTimer=setInterval(()=>{i++;if(i>=ys.length){stopLabTimer();return;}PYY=ys[i];pyRender();},1500);}
+function labPyramid(){PYY="1950";pyRender();}
+function pyRender(){
+  const d=PY[PYY],ages=["0〜9","10〜19","20〜29","30〜39","40〜49","50〜59","60〜69","70〜79","80〜"];
+  const W=360,cx=180,bh=19,top=12,sc=6;
+  let s='<svg viewBox="0 0 '+W+' 205" class="lab-svg">';
+  d.b.forEach((v,i)=>{const y=top+(8-i)*(bh+2),w=v/2*sc,col=i<2?"#8dc63f":i<6?"#2fbdea":"#e07da0";
+    s+='<rect x="'+(cx-18-w)+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="3" fill="'+col+'"/>';
+    s+='<rect x="'+(cx+18)+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="3" fill="'+col+'" opacity=".8"/>';
+    s+='<text x="'+cx+'" y="'+(y+14)+'" text-anchor="middle" font-size="9" fill="#5b7884">'+ages[i]+'</text>';});
+  s+='<text x="40" y="200" font-size="11" fill="#5b7884">男</text><text x="310" y="200" font-size="11" fill="#5b7884">女</text></svg>';
+  const k=d.k;
+  el("lab-x").innerHTML=seg(Object.keys(PY).map(y=>[y,y+(y==="2050"?"*":"")]),PYY,"pySet")+
+   '<div class="lab-big">'+PYY+'年 <small>'+d.shape+'</small></div>'+s+
+   '<div class="lab-bar"><span style="width:'+k[0]+'%;background:#8dc63f">'+(k[0]>16?"年少 ":"")+k[0]+'%'+'</span><span style="width:'+k[1]+'%;background:#2fbdea">生産年齢 '+k[1]+'%</span><span style="width:'+k[2]+'%;background:#e07da0">'+(k[2]>16?"老年 ":"")+k[2]+'%'+'</span></div>'+
+   '<div class="lab-note">年少＝0〜14歳／生産年齢＝15〜64歳／老年＝65歳以上（緑・青・ピンクのグラフの色は目安）</div>'+
+   '<div class="lab-res">'+d.note+'</div>'+
+   '<div class="lab-ctrl"><button class="segbtn on" onclick="pyPlay()">▶ 1950年から再生</button></div>'+
+   '<div class="lab-tip">💡 <b>富士山型 → つりがね型 → つぼ型</b>。原因は<b>出生率の低下（少子化）</b>と<b>平均寿命ののび（高齢化）</b>。テストでは「2020年ごろに最も近い形は？」→ <b>つぼ型</b>。※割合は統計をもとにしたおおよその値、2050年は推計。</div>';
+}
+
 /* ================= エンジン ================= */
 const COURSE_INFO={
   "50":{label:"50点コース｜基礎暗記", cls:"c50", pts:10},
@@ -1379,8 +1581,8 @@ const SETS={
   {key:"mix",name:"🔀 全範囲ミックス",sub:"全40問からランダム10問。仕上げの腕試し！",get:()=>shuffle(ALL50).slice(0,N)},
  ],
  "70":[
-  {key:"s1",name:"資料セット①",sub:"グラフ・年表・比較表の読み取り（10問）",get:()=>shuffle(Q70)},
-  {key:"s2",name:"資料セット②",sub:"体系図・条文・表の読み取り（10問）",get:()=>shuffle(Q70B)},
+  {key:"s1",name:"資料セット①",sub:"グラフ・年表の読み取り／「何倍？」「何ポイント？」の数値入力／年代の並べ替え（10問）",get:()=>shuffle(Q70)},
+  {key:"s2",name:"資料セット②",sub:"条文・表の読み取り／人権の歴史・憲法改正手続きの並べ替え（10問）",get:()=>shuffle(Q70B)},
  ],
  "90":[
   {key:"s1",name:"説明セット①",sub:"憲法・人権・平和主義｜部品を選んで記述を完成（10問）",get:()=>shuffle(Q90)},
@@ -1449,15 +1651,20 @@ function renderDots(){
 const MARKS=["ア","イ","ウ","エ","オ","カ"];
 function renderQ(){
   const q=S.qs[S.idx];
-  const multi=typeof q.c[0]==="object";
+  const multi=!!q.c&&typeof q.c[0]==="object";
   renderDots();
   el("score-box").textContent="スコア "+S.score;
-  el("q-num").innerHTML="第"+(S.idx+1)+"問 / "+N+(multi?'<span id="q-type">すべて選べ</span>':(q.type?'<span id="q-type">'+q.type+'</span>':""));
+  el("q-num").innerHTML="第"+(S.idx+1)+"問 / "+N+(multi?'<span id="q-type">すべて選べ</span>':q.kind==="num"?'<span id="q-type">🔢 数値入力</span>':q.kind==="order"?'<span id="q-type">🔀 並べ替え</span>':(q.type?'<span id="q-type">'+q.type+'</span>':""));
   el("shiryo").innerHTML = q.sh ? (typeof q.sh==="function"?q.sh():q.sh) : "";
   let qt=q.q.replace("【誤っているもの】",'<span class="wrong-word">【誤っているもの】</span>')
             .replace("【すべて】",'<span class="wrong-word">【すべて】</span>');
   if(multi) qt+='\n（いくつ正解があるかはヒミツ。選び終わったら「決定する！」）';
+  if(q.kind==="order") qt+='\n（タップした順に番号がつくよ。もう一度タップで取り消し）';
   el("q-text").innerHTML=qt;
+  if(q.kind){
+    if(q.kind==="num") renderNum(q); else renderOrder(q);
+    hide("feedback");window.scrollTo({top:0,behavior:"smooth"});return;
+  }
   const order=shuffle([...Array(q.c.length).keys()]);
   S.order=order;
   const box=el("choices");box.innerHTML="";
@@ -1478,6 +1685,128 @@ function renderQ(){
   }
   hide("feedback");
   window.scrollTo({top:0,behavior:"smooth"});
+}
+/* ===== 数値入力・並べ替え ===== */
+function toHalf(s){return String(s).replace(/[０-９．－]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/[。、，]/g,".").replace(/[^\d.\-]/g,"");}
+function renderNum(q){
+  const box=el("choices");box.innerHTML="";
+  q.blanks.forEach((b,i)=>{
+    const r=document.createElement("div");r.className="num-row";
+    r.innerHTML=(b.l?'<span class="nl">'+b.l+'</span>':'<span class="nl">答</span>')+
+      '<input type="text" size="4" inputmode="decimal" autocomplete="off" id="num'+i+'" placeholder="数字を入力">'+
+      '<span class="nu">'+(b.u||"")+'</span>';
+    box.appendChild(r);
+  });
+  const d=document.createElement("button");
+  d.id="decide-btn";d.textContent="答える！";d.disabled=true;d.onclick=judgeNum;
+  box.appendChild(d);
+  box.querySelectorAll("input").forEach(inp=>{
+    inp.addEventListener("input",()=>{d.disabled=[...box.querySelectorAll("input")].some(x=>toHalf(x.value)==="");});
+    inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!d.disabled)judgeNum();});
+  });
+}
+function judgeNum(){
+  const q=S.qs[S.idx];
+  const inputs=[...el("choices").querySelectorAll("input")];
+  const vals=inputs.map(x=>toHalf(x.value));
+  let allOk=true;const lines=[];
+  q.blanks.forEach((b,i)=>{
+    const v=parseFloat(vals[i]);
+    const ok=!isNaN(v)&&Math.abs(v-b.a)<=(b.tol||0)+1e-9;
+    if(!ok)allOk=false;
+    inputs[i].disabled=true;
+    inputs[i].parentNode.classList.add(ok?"nok":"nng");
+    const lbl=b.l?b.l+"：":"";
+    let why="";
+    if(!ok&&b.miss){const k=Object.keys(b.miss).find(k=>Math.abs(parseFloat(k)-v)<1e-9);if(k)why='<div class="rv-why">🤔 '+b.miss[k]+'</div>';}
+    lines.push('<div class="fb-item">'+(ok?"✅ ":"❌ ")+lbl+'あなたの答え <b>'+(vals[i]||"（空）")+(b.u||"")+'</b>'+(ok?"":' → 正解は <b>'+b.a+(b.u||"")+'</b>')+why+'</div>');
+  });
+  el("decide-btn").remove();
+  finishSpecial(q,allOk,{ans:vals},lines.join("")+'<div style="margin-top:6px;">💡 '+q.e+'</div>');
+}
+function renderOrder(q){
+  const box=el("choices");box.innerHTML="";
+  S.ordSel=[];
+  const ord=shuffle([...Array(q.items.length).keys()]);
+  S.order=ord;
+  ord.forEach(oi=>{
+    const b=document.createElement("button");
+    b.className="choice ord-item";b.dataset.oi=oi;
+    b.innerHTML='<span class="ono"></span><span>'+q.items[oi]+'</span>';
+    b.onclick=()=>toggleOrd(b);
+    box.appendChild(b);
+  });
+  const row=document.createElement("div");row.className="ord-btns";
+  row.innerHTML='<button class="ord-reset" onclick="resetOrd()">↺ やり直す</button>';
+  const d=document.createElement("button");
+  d.id="decide-btn";d.textContent="決定する！";d.disabled=true;d.onclick=judgeOrder;
+  box.appendChild(row);box.appendChild(d);
+}
+function paintOrd(){
+  el("choices").querySelectorAll(".ord-item").forEach(b=>{
+    const k=S.ordSel.indexOf(+b.dataset.oi);
+    b.classList.toggle("sel",k>=0);
+    b.querySelector(".ono").textContent=k>=0?String(k+1):"";
+  });
+  el("decide-btn").disabled=S.ordSel.length!==S.qs[S.idx].items.length;
+}
+function toggleOrd(b){
+  const oi=+b.dataset.oi,k=S.ordSel.indexOf(oi);
+  if(k>=0)S.ordSel.splice(k,1);else S.ordSel.push(oi);
+  paintOrd();
+}
+function resetOrd(){S.ordSel=[];paintOrd();}
+function judgeOrder(){
+  const q=S.qs[S.idx];
+  const sel=S.ordSel.slice();
+  const okPos=sel.filter((oi,i)=>oi===i).length;
+  const allOk=okPos===q.items.length;
+  el("choices").querySelectorAll(".ord-item").forEach(b=>{
+    const oi=+b.dataset.oi,k=sel.indexOf(oi);
+    b.disabled=true;b.classList.remove("sel");
+    b.classList.add(k===oi?"correct":"wrongpick");
+  });
+  el("choices").querySelector(".ord-btns").remove();el("decide-btn").remove();
+  const yours='<div class="fb-item"><b>あなたの順番</b>'+sel.map((oi,i)=>'<div>'+(oi===i?"✅":"❌")+" "+(i+1)+". "+q.items[oi]+'</div>').join("")+'</div>';
+  const right='<div class="fb-item"><b>⭕ 正しい順番</b>'+q.items.map((t,i)=>'<div>'+(i+1)+". "+t+'</div>').join("")+'</div>';
+  finishSpecial(q,allOk,{ord:sel},(allOk?"":'<div style="margin-bottom:6px;">'+okPos+"/"+q.items.length+" か所が正しい位置。</div>"+yours)+right+
+    '<div style="margin-top:6px;">💡 '+q.e+'</div>'+(allOk||!q.w?"":'<div style="margin-top:6px;">🤔 '+q.w+'</div>'));
+}
+function finishSpecial(q,ok,rec,html){
+  S.results.push(ok);
+  let got=0;
+  if(ok){S.correct++;S.streak++;got=COURSE_INFO[S.course].pts+(S.streak>=2?(S.streak-1)*5:0);S.score+=got;}
+  else{S.streak=0;S.wrongs.push(Object.assign({no:S.idx+1,q:q},rec));}
+  el("score-box").textContent="スコア "+S.score;
+  el("verdict").textContent=ok?"⭕ 正解！":"❌ ざんねん…";
+  el("verdict").className="verdict "+(ok?"ok":"ng");
+  el("gotpt").textContent=ok?"+"+got+"pt"+(S.streak>=2?"（"+S.streak+"連続正解ボーナス！）":""):"";
+  el("expl").innerHTML=html;
+  el("model-wrap").innerHTML="";
+  el("next-btn").textContent=S.idx===N-1?"結果を見る ▶":"次へ ▶";
+  show("feedback");
+  renderDotsAfter();
+}
+function reviewSpecial(q,w){
+  let h='';
+  if(w.ans){
+    h+='<div class="rv-sec rv-you"><div class="rv-lbl">❌ あなたの答え</div>';
+    q.blanks.forEach((b,i)=>{
+      const v=parseFloat(w.ans[i]);const ok=!isNaN(v)&&Math.abs(v-b.a)<=(b.tol||0)+1e-9;
+      let why="";
+      if(!ok&&b.miss){const k=Object.keys(b.miss).find(k=>Math.abs(parseFloat(k)-v)<1e-9);if(k)why='<div class="rv-why">🤔 <b>なぜ違う？</b> '+b.miss[k]+'</div>';}
+      h+='<div class="rv-line">'+(ok?"✅ ":"❌ ")+(b.l?b.l+"：":"")+'<b>'+(w.ans[i]||"（空）")+(b.u||"")+'</b>'+why+'</div>';
+    });
+    h+='</div><div class="rv-sec rv-right"><div class="rv-lbl">⭕ 正しくは</div><div class="rv-line"><b>'+
+       q.blanks.map(b=>(b.l?b.l+"＝":"")+b.a+(b.u||"")).join("　")+'</b></div><div class="rv-why">💡 '+q.e+'</div></div>';
+  }else{
+    h+='<div class="rv-sec rv-you"><div class="rv-lbl">❌ あなたの順番</div>'+
+       w.ord.map((oi,i)=>'<div class="rv-line">'+(oi===i?"✅":"❌")+" "+(i+1)+". "+q.items[oi]+'</div>').join("")+
+       (q.w?'<div class="rv-why">🤔 <b>なぜ違う？</b> '+q.w+'</div>':'')+'</div>';
+    h+='<div class="rv-sec rv-right"><div class="rv-lbl">⭕ 正しい順番</div>'+
+       q.items.map((t,i)=>'<div class="rv-line">'+(i+1)+". "+t+'</div>').join("")+'<div class="rv-why">💡 '+q.e+'</div></div>';
+  }
+  return h;
 }
 
 function toggleSel(b){
@@ -1616,7 +1945,8 @@ function reviewCard(w){
   if(q.sh){
     h+='<details class="rv-sh"><summary>📊 資料をもう一度見る</summary>'+(typeof q.sh==="function"?q.sh():q.sh)+'</details>';
   }
-  if(w.sel){ /* 90点コース：部品選択 */
+  if(w.ans||w.ord){ h+=reviewSpecial(q,w); }
+  else if(w.sel){ /* 90点コース：部品選択 */
     const wrongSel=w.sel.filter(i=>!q.c[i].ok);
     const missed=q.c.map((c,i)=>i).filter(i=>q.c[i].ok&&w.sel.indexOf(i)<0);
     const okSel=w.sel.filter(i=>q.c[i].ok);
@@ -1654,7 +1984,7 @@ function reviewCard(w){
 function closeWelcome(){hide("welcome");show("home");window.scrollTo(0,0);}
 function openWelcome(){hide("home");show("welcome");window.scrollTo(0,0);}
 function retry(){startSet(S.setIdx);}
-function goHome(){hide("quiz");hide("result");hide("sets");hide("intro90");hide("welcome");show("home");window.scrollTo(0,0);}
+function goHome(){stopLabTimer();hide("lab");hide("quiz");hide("result");hide("sets");hide("intro90");hide("welcome");show("home");window.scrollTo(0,0);}
 function backToSets(){hide("quiz");hide("result");renderSets();show("sets");window.scrollTo(0,0);}
 </script>
 </body>
