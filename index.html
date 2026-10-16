@@ -175,6 +175,8 @@ main{max-width:760px;margin:0 auto;padding:16px 14px 50px;}
 .btn-row{display:grid;gap:10px;margin-top:18px;}
 .btn{width:100%;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;}
 .btn.retry{background:var(--green);color:#fff;box-shadow:0 3px 0 #74a82c;}
+.btn.labgo{background:linear-gradient(135deg,#7b5fd6,#5a8fe0);color:#fff;box-shadow:0 3px 0 #4e3aa0;}
+.rv-lab{background:#f6f1ff;border:2px dashed #b9a3ef;border-radius:12px;padding:9px 11px;margin-top:10px;font-size:13.5px;line-height:1.7;color:#3b2d6b;}
 .btn.home{background:#e4eef3;color:var(--ink);box-shadow:0 3px 0 #c3d4dc;}
 .btn:active{transform:translateY(2px);box-shadow:none;}
 
@@ -211,6 +213,12 @@ footer b{color:var(--blue);}
 .lab-entry b{font-size:16px;color:#6a4fc4;}
 .lab-entry small{font-size:11.5px;color:#48616d;}
 .lab-entry .le-go{margin-left:auto;color:#6a4fc4;font-weight:900;}
+.lab-hint{margin-top:10px;background:#f6f1ff;border:2px dashed #b9a3ef;border-radius:14px;padding:10px 12px;font-size:13.5px;line-height:1.7;color:#3b2d6b;}
+.lab-entry{position:relative;}
+.lab-entry.has-new{border-color:#8f6ce0;animation:labpulse 1.6s ease-in-out infinite;}
+@keyframes labpulse{0%,100%{box-shadow:0 2px 8px rgba(110,80,200,.12);}50%{box-shadow:0 0 0 7px rgba(143,108,224,.30);}}
+.new-badge{position:absolute;top:-10px;right:12px;background:#e8467c;color:#fff;font-size:11px;font-weight:900;border-radius:999px;padding:2px 10px;box-shadow:0 2px 6px rgba(232,70,124,.35);}
+.hint-tag{display:inline-block;margin-top:5px;background:#fff3c4;color:#8a5a00;border:1.5px solid #f2cf5b;border-radius:999px;font-size:11px;font-weight:800;padding:1px 9px;}
 .lab-head{font-size:17px;font-weight:900;color:#6a4fc4;margin:2px 0 10px;}
 .lab-card{background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 8px rgba(31,120,150,.10);}
 .lab-lbl{font-size:12px;font-weight:800;color:#1491bd;margin:10px 0 4px;}
@@ -414,6 +422,7 @@ footer b{color:var(--blue);}
       <div id="review" class="review"></div>
       <div class="btn-row">
         <button class="btn retry" id="retry-btn" onclick="retry()">もう一度チャレンジ</button>
+        <button class="btn labgo" onclick="openLabFromResult()">🧪 インタラクティブ教材</button>
         <button class="btn home" onclick="backToSets()">セット選択にもどる</button>
       </div>
     </div>
@@ -1326,14 +1335,14 @@ const Q90B = [
     fb:"理由の核心。知る権利の根っこは<b>国民主権</b>。"},
    {t:"国や地方公共団体が持つ情報を手に入れる必要があるから",ok:true,
     fb:"対象の部品。知る対象は<b>国・地方公共団体が持つ情報</b>。"},
-   {t:"知る権利に基づいて、情報公開制度が設けられている",ok:true,
-    fb:"制度とのつながりの部品。<b>知る権利→情報公開制度</b>のセットは頻出。"},
+   {t:"日本国憲法に「知る権利」とはっきり書かれているから",ok:false,
+    fb:"知る権利は憲法に<b>直接の規定がない</b>「新しい人権」。表現の自由（第21条）などを根拠に主張されるようになった。"},
    {t:"他人の個人情報を自由に見るための権利だから",ok:false,
     fb:"それは<b>プライバシーの権利の侵害</b>になる。知る権利の対象は個人情報ではなく<b>行政の情報</b>。"},
    {t:"マスメディアの利益を守るための権利だから",ok:false,
     fb:"メディアのためではなく、<b>主権者である国民のため</b>の権利。"},
   ],
-  m:"知る権利は、①国民が主権者として政治について正しく判断し、参加するために、②国や地方公共団体が持つ情報を得ることが必要だから認められる。③この権利に基づいて、情報公開制度が設けられている。"},
+  m:"知る権利は、①国民が主権者として政治について正しく判断し、参加するために、②国や地方公共団体が持つ情報を得ることが必要だから認められる。<br>（参考：この権利に基づいて、国や地方公共団体の情報公開制度が設けられている）"},
  {q:"「ワイマール憲法はどのような憲法か」を説明したい。説明の部品として正しいものを【すべて】選びなさい。",
   c:[
    {t:"1919年に、ドイツで制定された",ok:true,
@@ -1436,16 +1445,39 @@ const Q90B = [
 
 
 /* ---------- 70点コース v6：選択＋数値入力（グラフ読み取り）＋並べ替え ---------- */
+/* ===== 数値問題は毎回ちがう数字で（2026-10-16）。統計は本物のまま、聞く年・系列を変える ===== */
+const rint=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const fx=v=>String(Math.round(v*10)/10);
+function missOf(ans,pairs){const o={};pairs.forEach(([k,t])=>{const s=String(k);if(Math.abs(parseFloat(s)-ans)>1e-9&&!(s in o))o[s]=t;});return o;}
+function ratioQ(yrs,vals,what,unit,tail){
+  const c=[];for(let i=0;i<vals.length;i++)for(let j=i+1;j<vals.length;j++){const r=vals[j]/vals[i],f=r*10-Math.floor(r*10);if(r>=1.3&&Math.abs(f-.5)>.08)c.push([i,j]);}
+  const [i,j]=pick(c),a=vals[i],b=vals[j],r=b/a,ans=Math.round(r*10)/10,other=(Math.round(r*10)===Math.floor(r*10)?Math.floor(r*10)+1:Math.floor(r*10))/10;
+  return {q:yrs[j]+"年の"+what+"は、"+yrs[i]+"年のおよそ何倍か。小数第2位を四捨五入して、小数第1位まで答えなさい。",
+   blanks:[{l:"",a:ans,u:"倍",tol:0.05,miss:missOf(ans,[[fx(b-a),fx(b-a)+"は<b>差</b>（何"+unit+"増えたか）。「何倍」は<b>割り算</b>："+b+"÷"+a+"。"],
+     [other,"四捨五入の位置を確認。"+b+"÷"+a+"＝"+(Math.floor(r*100)/100)+"…→ 小数第2位を四捨五入して<b>"+ans+"</b>。"],
+     [Math.round(r),"「小数第1位まで」と指示がある。<b>"+ans+"</b>と答える。"],[fx(a/b),"割る順番が逆。<b>新しい年÷古い年</b>（"+b+"÷"+a+"）。"]])}],
+   e:"何倍＝<b>あとの値÷はじめの値</b>＝"+b+"÷"+a+"＝"+(Math.floor(r*100)/100)+"…→ <b>約"+ans+"倍</b>。"+tail};
+}
+const DYN={
+ kaigai:{kind:"num",sh:Q70_OLD[2].sh,make:()=>ratioQ(["1985","1990","1995","2000","2005","2010","2015","2020"],[48.1,62.0,72.8,81.2,101.3,114.3,131.7,135.8],"海外で暮らす日本人の数","万人",
+   "海外で暮らす日本人の増加は<b>グローバル化</b>と関係の深い資料。")},
+ fukyu:{kind:"num",sh:Q70_OLD[3].sh,make:()=>{
+   const yrs=["2000","2005","2010","2015","2020"],S={"パソコン":[50,81,83,77,70],"インターネット":[34,87,94,96,97],"スマートフォン":[null,null,10,72,87]};
+   const c=[];for(const k in S)for(let i=0;i<5;i++)for(let j=i+1;j<5;j++){const a=S[k][i],b=S[k][j];if(a!=null&&b!=null&&Math.abs(b-a)>=5)c.push([k,i,j]);}
+   const [k,i,j]=pick(c),a=S[k][i],b=S[k][j],up=b>a,ans=Math.abs(b-a);
+   const oth=Object.keys(S).filter(x=>x!==k&&S[x][j]!=null).map(x=>[S[x][j],S[x][j]+"は<b>"+x+"</b>の普及率。線の色（凡例）を確認しよう。"]);
+   return {q:yrs[i]+"年から"+yrs[j]+"年までの"+(j-i)*5+"年間で、"+k+"の世帯普及率は何ポイント"+(up?"上がった":"下がった")+"か。",
+    blanks:[{l:"",a:ans,u:"ポイント",miss:missOf(ans,[[b,b+"は"+yrs[j]+"年の<b>普及率そのもの</b>。"+yrs[i]+"年の"+a+"%との<b>差</b>を求める。"],[fx(b/a),fx(b/a)+"は<b>何倍か</b>（"+b+"÷"+a+"）。問われているのは<b>差</b>。"]].concat(oth))}],
+    e:b+"%－"+a+"%"+(up?"":"＝－"+ans+"、つまり")+"＝<b>"+ans+"ポイント"+(up?"":"下がった")+"</b>。％どうしの差は「％」ではなく<b>「ポイント」</b>で表す。"+(k==="スマートフォン"?"スマホの急速な普及＝<b>情報化</b>。":k==="パソコン"&&!up?"スマートフォンなどに置きかわり、パソコンは減っている。":"インターネットの広がり＝<b>情報化</b>。")};}},
+ hanzai:{kind:"num",sh:Q70B_OLD[0].sh,make:()=>ratioQ(["2005","2010","2015","2020"],[3161,5741,8113,9875],"インターネットに関わる犯罪の検挙件数","件",
+   "情報社会では個人情報の流出などの犯罪が課題で、<b>メディアリテラシー</b>が大切。")},
+};
+function instQ(q){return q.make?Object.assign({},q,q.make()):q;}
 const Q70 = [
  Q70_OLD[0], Q70_OLD[1],
- {kind:"num",sh:Q70_OLD[2].sh,
-  q:"2020年に海外で暮らす日本人の数は、1985年のおよそ何倍か。小数第2位を四捨五入して、小数第1位まで答えなさい。",
-  blanks:[{l:"",a:2.8,u:"倍",tol:0.05,miss:{"87.7":"87.7は<b>差</b>（何万人増えたか）。「何倍」は<b>割り算</b>：135.8÷48.1。","2.9":"四捨五入の位置を確認。135.8÷48.1＝2.82…→ 小数第2位の「2」を四捨五入して<b>2.8</b>。","3":"「小数第1位まで」と指示がある。<b>2.8</b>と答える。","0.4":"割る順番が逆。<b>新しい年÷古い年</b>（135.8÷48.1）。"}}],
-  e:"何倍＝<b>あとの値÷はじめの値</b>＝135.8÷48.1＝2.82…→ <b>約2.8倍</b>。海外で暮らす日本人の増加は<b>グローバル化</b>と関係の深い資料。"},
- {kind:"num",sh:Q70_OLD[3].sh,
-  q:"2010年から2020年までの10年間で、スマートフォンの世帯普及率は何ポイント上がったか。",
-  blanks:[{l:"",a:77,u:"ポイント",miss:{"87":"87は2020年の<b>普及率そのもの</b>。2010年の10%を<b>引く</b>。","8.7":"8.7は<b>何倍か</b>（87÷10）。問われているのは<b>差</b>（何ポイント上がったか）。","97":"97は<b>インターネット</b>の普及率。線の色（凡例）を確認しよう。"}}],
-  e:"87%－10%＝<b>77ポイント</b>。％どうしの差は「％」ではなく<b>「ポイント」</b>で表す。スマホの急速な普及＝<b>情報化</b>。"},
+ DYN.kaigai,
+ DYN.fukyu,
  Q70_OLD[4],
  {kind:"order",
   q:"日本の平和主義と防衛に関するできごとを、古い順にタップして並べなさい。",
@@ -1455,10 +1487,7 @@ const Q70 = [
  Q70_OLD[6], Q70_OLD[7], Q70_OLD[8], Q70_OLD[9],
 ];
 const Q70B = [
- {kind:"num",sh:Q70B_OLD[0].sh,
-  q:"2020年のインターネットに関わる犯罪の検挙件数は、2005年のおよそ何倍か。小数第2位を四捨五入して、小数第1位まで答えなさい。",
-  blanks:[{l:"",a:3.1,u:"倍",tol:0.05,miss:{"6714":"6714は<b>差</b>（何件増えたか）。「何倍」は<b>割り算</b>：9875÷3161。","3":"「小数第1位まで」と指示がある。<b>3.1</b>と答える。","0.3":"割る順番が逆。<b>新しい年÷古い年</b>（9875÷3161）。"}}],
-  e:"9875÷3161＝3.12…→ <b>約3.1倍</b>。情報社会では個人情報の流出などの犯罪が課題で、<b>メディアリテラシー</b>が大切。"},
+ DYN.hanzai,
  Q70B_OLD[1],
  {kind:"order",
   q:"人権思想と憲法の歴史に関するできごとを、古い順にタップして並べなさい。",
@@ -1474,23 +1503,51 @@ const Q70B = [
  Q70B_OLD[9],
 ];
 
+(function(){ /* 70点 → 関連するインタラクティブ教材（LABSの番号） */
+  [...Q70,...Q70B].forEach(q=>{
+    if(q.sh===kaiseiFlow||(q.kind==="order"&&q.q.includes("憲法の改正")))q.lab=0;
+    if(q.sh===pyramidChart||q.sh===Q70_OLD[1].sh)q.lab=1;
+  });
+})();
 /* ================= 🧪 インタラクティブ教材（公民） ================= */
 const LABS=[
  {t:"⚖️ 憲法改正シミュレーター",d:"賛成の数を動かして、改正が成立するか判定。法律とのちがいも分かる",f:labKaisei},
  {t:"👥 人口ピラミッドの移り変わり",d:"1950年→2050年。富士山型からつぼ型へ、少子高齢化が目で見える",f:labPyramid},
 ];
+/* ---- 教材の「気づかせ」：ボタンで飛ばさず、ホームの紫ボタンに NEW! を付けて自分で見つけさせる ---- */
+const LH_KEY="kateLabHint:"+location.pathname;
+let LH=(()=>{try{const v=JSON.parse(localStorage.getItem(LH_KEY));if(v&&Array.isArray(v.labs))return v;}catch(e){}return {isNew:false,labs:[]};})();
+function lhSave(){try{localStorage.setItem(LH_KEY,JSON.stringify(LH));}catch(e){}}
+function labHint(q){
+  if(!S||S.course!=="70"||q.lab==null||!LABS[q.lab])return "";
+  if(!LH.labs.includes(q.lab))LH.labs.push(q.lab);
+  LH.isNew=true;lhSave();paintLabEntry();
+  return ""; /* 答え合わせ画面での予告はやめ、結果画面で案内する（2026-10-16） */
+}
+function paintLabEntry(){
+  document.querySelectorAll(".lab-entry").forEach(b=>{
+    b.classList.toggle("has-new",!!LH.isNew);
+    let bd=b.querySelector(".new-badge");
+    if(LH.isNew&&!bd){bd=document.createElement("span");bd.className="new-badge";bd.textContent="🔓 NEW!";b.appendChild(bd);}
+    if(!LH.isNew&&bd)bd.remove();
+  });
+}
 let labTimer=null;
 function stopLabTimer(){if(labTimer){clearInterval(labTimer);labTimer=null;}}
-function openLab(){hide("home");hide("welcome");show("lab");renderLabMenu();}
+let LAB_FROM_RESULT=false;
+function openLabFromResult(){LAB_FROM_RESULT=true;hide("result");openLab();}
+function backToResult(){stopLabTimer();LAB_FROM_RESULT=false;hide("lab");show("result");window.scrollTo(0,0);}
+function openLab(){LH.isNew=false;lhSave();paintLabEntry();hide("home");hide("welcome");show("lab");renderLabMenu();}
 function renderLabMenu(){
   stopLabTimer();
   let h='<div class="lead">🧪 <b>さわって理解する教材</b>だよ。スライダーやボタンを動かして、教科書の図や数字が「どういう意味なのか」を確かめよう。</div><div class="set-grid">';
-  LABS.forEach((L,i)=>{h+='<button class="setbtn" onclick="labOpen('+i+')"><span><span class="sn">'+L.t+'</span><br><span class="sd">'+L.d+'</span></span><span class="sb">ひらく ▶</span></button>';});
-  h+='</div><div class="btn-row"><button class="btn home" onclick="goHome()">ホームにもどる</button></div>';
+  LABS.forEach((L,i)=>{h+='<button class="setbtn" onclick="labOpen('+i+')"><span><span class="sn">'+L.t+'</span><br><span class="sd">'+L.d+'</span>'+(LH.labs.includes(i)?'<br><span class="hint-tag">💡 さっきまちがえた問題のヒントがここに！</span>':'')+'</span><span class="sb">ひらく ▶</span></button>';});
+  h+='</div><div class="btn-row">'+(LAB_FROM_RESULT?'<button class="btn retry" onclick="backToResult()">📒 結果・復習にもどる</button>':'')+'<button class="btn home" onclick="goHome()">ホームにもどる</button></div>';
   el("lab-body").innerHTML=h;window.scrollTo(0,0);
 }
 function labOpen(i){
   stopLabTimer();
+  LH.labs=LH.labs.filter(x=>x!==i);lhSave();
   el("lab-body").innerHTML='<div class="lab-head">'+LABS[i].t+'</div><div id="lab-x" class="lab-card"></div>'+
     '<div class="btn-row"><button class="btn home" onclick="renderLabMenu()">教材一覧にもどる</button></div>';
   LABS[i].f(el("lab-x"));window.scrollTo(0,0);
@@ -1579,6 +1636,15 @@ function shuffle(arr){
   for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
   return a;
 }
+/* 同じ資料(sh)を使う問題は「ひとかたまり・元の順番のまま」で出す。かたまり同士の順番だけシャッフル */
+function groupShuffle(arr){
+  const groups=[],m=new Map();
+  arr.forEach(q=>{
+    if(q.sh){if(!m.has(q.sh)){const g=[];m.set(q.sh,g);groups.push(g);}m.get(q.sh).push(q);}
+    else groups.push([q]);
+  });
+  return shuffle(groups).flat();
+}
 function el(id){return document.getElementById(id);}
 function show(id){el(id).classList.remove("hidden");}
 function hide(id){el(id).classList.add("hidden");}
@@ -1593,8 +1659,8 @@ const SETS={
   {key:"mix",name:"🔀 全範囲ミックス",sub:"全40問からランダム10問。仕上げの腕試し！",get:()=>shuffle(ALL50).slice(0,N)},
  ],
  "70":[
-  {key:"s1",name:"資料セット①",sub:"グラフ・年表の読み取り／「何倍？」「何ポイント？」の数値入力／年代の並べ替え（10問）",get:()=>shuffle(Q70)},
-  {key:"s2",name:"資料セット②",sub:"条文・表の読み取り／人権の歴史・憲法改正手続きの並べ替え（10問）",get:()=>shuffle(Q70B)},
+  {key:"s1",name:"資料セット①",sub:"グラフ・年表の読み取り／「何倍？」「何ポイント？」の数値入力／年代の並べ替え（10問）",get:()=>groupShuffle(Q70).map(instQ)},
+  {key:"s2",name:"資料セット②",sub:"条文・表の読み取り／人権の歴史・憲法改正手続きの並べ替え（10問）",get:()=>groupShuffle(Q70B).map(instQ)},
  ],
  "90":[
   {key:"s1",name:"説明セット①",sub:"憲法・人権・平和主義｜部品を選んで記述を完成（10問）",get:()=>shuffle(Q90)},
@@ -1793,7 +1859,7 @@ function finishSpecial(q,ok,rec,html){
   el("verdict").textContent=ok?"⭕ 正解！":"❌ ざんねん…";
   el("verdict").className="verdict "+(ok?"ok":"ng");
   el("gotpt").textContent=ok?"+"+got+"pt"+(S.streak>=2?"（"+S.streak+"連続正解ボーナス！）":""):"";
-  el("expl").innerHTML=html;
+  el("expl").innerHTML=html+(ok?"":labHint(q));
   el("model-wrap").innerHTML="";
   el("next-btn").textContent=S.idx===N-1?"結果を見る ▶":"次へ ▶";
   show("feedback");
@@ -1896,7 +1962,7 @@ function answer(di,btn){
   el("verdict").textContent= ok ? "⭕ 正解！" : "❌ ざんねん…";
   el("verdict").className="verdict "+(ok?"ok":"ng");
   el("gotpt").textContent= ok ? "+"+got+"pt"+(S.streak>=2?"（"+S.streak+"連続正解ボーナス！）":"") : "正解は上の緑の選択肢だよ";
-  el("expl").innerHTML="💡 "+q.e;
+  el("expl").innerHTML="💡 "+q.e+(ok?"":labHint(q));
   const mw=el("model-wrap");
   if(q.m){
     mw.innerHTML='<div class="model-box"><div class="mb-title">✍️ 実際に記述・説明するならこう書く！</div><div class="mb-text">'+q.m+'</div></div>'+
@@ -1990,14 +2056,18 @@ function reviewCard(w){
       h+='<div class="rv-sec rv-model"><div class="rv-lbl">✍️ 記述で書くならこう</div><div class="rv-mtext">'+q.m+'</div></div>';
     }
   }
+  if(S.course==="70"&&q.lab!=null&&LABS[q.lab]){
+    h+='<div class="rv-lab">🧪 <b>動かして確かめよう！</b>この問題は、インタラクティブ教材<b>「'+LABS[q.lab].t+'」</b>で実際に動かして確認できるよ。<br>👉 いちばん下の<b>「🧪 インタラクティブ教材」</b>ボタンから開こう（関係する教材には💡の札が付いているよ）。</div>';
+  }
   return h+'</div>';
 }
 
 function closeWelcome(){hide("welcome");show("home");window.scrollTo(0,0);}
 function openWelcome(){hide("home");show("welcome");window.scrollTo(0,0);}
 function retry(){startSet(S.setIdx);}
-function goHome(){stopLabTimer();hide("lab");hide("quiz");hide("result");hide("sets");hide("intro90");hide("welcome");show("home");window.scrollTo(0,0);}
+function goHome(){stopLabTimer();LAB_FROM_RESULT=false;hide("lab");hide("quiz");hide("result");hide("sets");hide("intro90");hide("welcome");show("home");window.scrollTo(0,0);}
 function backToSets(){hide("quiz");hide("result");renderSets();show("sets");window.scrollTo(0,0);}
+paintLabEntry();
 </script>
 </body>
 </html>
